@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/4877001cdd.js" crossorigin="anonymous"></script>
+    <style>
+    .search-table{
+        padding: 10%;
+        margin-top: -6%;
+    }
+    .search-box{
+        background: #c1c1c1;
+        border: 1px solid #ababab;
+        padding: 3%;
+    }
+    .search-box input:focus{
+        box-shadow:none;
+        border:2px solid #eeeeee;
+    }
+    .search-list{
+        background: #fff;
+        border: 1px solid #ababab;
+        border-top: none;
+    }
+    .search-list h3{
+        background: #eee;
+        padding: 3%;
+        margin-bottom: 0%;
+    }
+    </style>
+</head>
+<body>
+    <div class="container search-table">
+                <div class="search-box">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h5>Search All Items</h5>
+                        </div>
+                        <div class="col-md-9">
+                            <input type="text" id="myInput" class="form-control" placeholder="Search all items e.g. XL430">
+                            <script>
+                                $(document).ready(function () {
+                                    $("#myInput").on("keyup", function () {
+                                        var value = $(this).val().toLowerCase();
+                                        $("#myTable tr").filter(function () {
+                                            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                                        });
+                                    });
+                                });
+                            </script>
+                        </div>
+                    </div>
+                </div>
+                <div class="search-list">
+                    <h3>현재 총 {{ n }} 종류의 물품이 있습니다.</h3>
+                    <table class="table" id="myTable">
+                        <thead>
+                            <tr>
+                                <th width="10%">사진</th>
+                                <th width="30%">물품명</th>
+                                <th width="20%">자료</th>
+                                <th width="20%">대여가능 수량</th>
+                                <th width="20%">개수</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        {% for p in db %}
+                        <tr>
+                            <td>
+                                <div>
+                                    {% if p.image %}
+                                        <img src="{{p.image.url}}" alt="{{p}} head image" width="50%" height="50%">
+                                    {% endif %}
+                                </div>
+                            </td>
+                            <td>{{ p.물품명 }}</td>
+                            <td>
+                                {% if p.file_upload %}
+                                    <a href="{{p.file_upload.url}}" class="btn btn-outline-dark" role="button" download>
+                                        Download :
+
+                                        {% if p.get_file_ext == 'xlsx' or p.get_file_ext == 'xls' %}
+                                            <i class="far fa-file-excel"></i>
+                                        {% else %}
+                                            <i class="far fa-file"></i>
+                                        {% endif %}
+                                    </a>
+                                {% endif %}
+                            </td>
+                            <td>{{ r.개수 }}</td>
+                            <td>{{ p.총_개수 }}</td>
+                        </tr>
+                        {% endfor %}
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+            <div>
+
+            </div>
+</body>
+</html>
