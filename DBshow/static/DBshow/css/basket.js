@@ -1,6 +1,37 @@
+
+
 let basket = {
     totalCount: 0, 
     totalPrice: 0,
+
+    //장바구니 물품 추가하기
+    addcheckedItem: function(){
+        const row_d = document.querySelector('.basketdiv');
+        last_div=Object.assign(document.createElement('div'), {
+          className: 'row.data',
+          innerHTML: `<div class="row data">
+                    <div class="subdiv">
+                        <div class="check"><input type="checkbox" name="buy" value="260" checked="" onclick="javascript:basket.checkItem();">&nbsp;</div>
+                        <div class="img"><img src="./img/basket1.jpg" width="60"></div>
+                        <div class="pname">
+                            <span>TX2</span>
+                        </div>
+                    </div>
+                    <div class="subdiv">
+                        <div class="num">
+                            <div class="updown">
+                                <input type="text" name="p_num1" id="p_num1" size="2" maxlength="4" class="p_num" value="2" onkeyup="javascript:basket.changePNum(1);">
+                                <span onclick="javascript:basket.changePNum(1);"><i class="fas fa-arrow-alt-circle-up up"></i></span>
+                                <span onclick="javascript:basket.changePNum(1);"><i class="fas fa-arrow-alt-circle-down down"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="subdiv">
+                        <div class="basketcmd"><a href="javascript:void(0)" class="abutton" onclick="javascript:basket.delItem();">삭제</a></div>
+                    </div>`
+        })
+        row_d.appendChild(last_div.firstChild);
+    },
     //체크한 장바구니 상품 비우기
     delCheckedItem: function(){
         document.querySelectorAll("input[name=buy]:checked").forEach(function (item) {
@@ -25,8 +56,10 @@ let basket = {
           this.reCalc();
           this.updateUI();
     },
+
     //재계산
     reCalc: function(){
+        /*
         this.totalCount = 0;
         this.totalPrice = 0;
         document.querySelectorAll(".p_num").forEach(function (item) {
@@ -37,12 +70,15 @@ let basket = {
                 this.totalPrice += count * price;
             }
         }, this); // forEach 2번째 파라메터로 객체를 넘겨서 this 가 객체리터럴을 가리키도록 함. - thisArg
+        */
     },
+
     //화면 업데이트
     updateUI: function () {
         document.querySelector('#sum_p_num').textContent = '상품갯수: ' + this.totalCount.formatNumber() + '개';
-        document.querySelector('#sum_p_price').textContent = '합계금액: ' + this.totalPrice.formatNumber() + '원';
+        //document.querySelector('#sum_p_price').textContent = '합계금액: ' + this.totalPrice.formatNumber() + '원';
     },
+
     //개별 수량 변경
     changePNum: function (pos) {
         var item = document.querySelector('input[name=p_num'+pos+']');
@@ -62,10 +98,12 @@ let basket = {
         this.reCalc();
         this.updateUI();
     },
+
     checkItem: function () {
         this.reCalc();
         this.updateUI();
     },
+
     delItem: function () {
         event.target.parentElement.parentElement.parentElement.remove();
         this.reCalc();

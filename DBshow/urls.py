@@ -7,4 +7,5 @@ urlpatterns = [
     path('db/', views.index),
     path('basket/', views.basket),
     path('check/', views.check),
+    path('testing/', views.testing),
 ]

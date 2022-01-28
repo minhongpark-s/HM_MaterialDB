@@ -3,14 +3,17 @@
 <html>
 <head>
 	<meta charset="utf-8">
+
 	<meta name="viewport" content="width=device-width">
 	<title>물품 대여 주문 목록 작성</title>
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 	<link rel="stylesheet" href="{% static 'DBshow/css/basket.css' %}" />
 	<script type="text/javascript" src="{% static 'DBshow/css/basket.js' %}"></script>
 </head>
+
 <body>
-    <form name="orderform" id="orderform" method="post" class="orderform" action="/Page" onsubmit="return false;">
+
+	<form name="orderform" id="orderform" method="post" class="orderform" action="/Page" onsubmit="return false;">
 
             <input type="hidden" name="cmd" value="order">
             <div class="basketdiv" id="basket">
@@ -21,9 +24,9 @@
                         <div class="pname">물품명</div>
                     </div>
                     <div class="subdiv">
-                        <div class="basketprice">PH</div>
+
                         <div class="num">수량</div>
-                        <div class="sum">PH</div>
+
                     </div>
                     <div class="subdiv">
 
@@ -41,7 +44,6 @@
                         </div>
                     </div>
                     <div class="subdiv">
-                        <div class="basketprice"><input type="hidden" name="p_price" id="p_price1" class="p_price" value="20000">20,000원</div>
                         <div class="num">
                             <div class="updown">
                                 <input type="text" name="p_num1" id="p_num1" size="2" maxlength="4" class="p_num" value="2" onkeyup="javascript:basket.changePNum(1);">
@@ -49,7 +51,6 @@
                                 <span onclick="javascript:basket.changePNum(1);"><i class="fas fa-arrow-alt-circle-down down"></i></span>
                             </div>
                         </div>
-                        <div class="sum">40,000원</div>
                     </div>
                     <div class="subdiv">
                         <div class="basketcmd"><a href="javascript:void(0)" class="abutton" onclick="javascript:basket.delItem();">삭제</a></div>
@@ -73,6 +74,8 @@
                 </div>
             </div>
         </form>
+
+<a href="javascript:void(0)" class="abutton" onclick="javascript:basket.addcheckedItem();">장바구니 추가</a>
 
 </body>
 </html>

@@ -33,3 +33,9 @@ def check(request):
             'rent' : Rent,
         }
     )
+
+def testing(request):
+    return render(
+        request,
+        'DBshow/testing.html',
+    )
