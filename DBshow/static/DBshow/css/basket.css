@@ -57,9 +57,10 @@
         line-height: 60px;
     }
         .basketdiv .data .num .updown {
-            color: #0075ff;
+            /*color: #0075ff;
             font-size: 2em;
             letter-spacing: -5px;
+            */
         }
         .basketdiv .check {
             width: 10%;
