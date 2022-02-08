@@ -5,7 +5,7 @@ import os
 
 class DB(models.Model):
     물품명 = models.CharField(max_length=30)
-    대여된_개수 = models.IntegerField()
+    남은_개수 = models.IntegerField()
     총_개수 = models.IntegerField()
 
     물품등록시점 = models.DateTimeField(auto_now_add=True)

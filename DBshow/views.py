@@ -30,12 +30,20 @@ def check(request):
         {
             'db': db,
             'n' : num,
-            'rent' : Rent,
+            'r' : rent,
         }
     )
 
 def testing(request):
+    db = DB.objects.all()
+    num = DB.objects.count()
+    rent = Rent.objects.all()
     return render(
         request,
         'DBshow/testing.html',
+        {
+            'db': db,
+            'n': num,
+            'r': rent,
+        }
     )
