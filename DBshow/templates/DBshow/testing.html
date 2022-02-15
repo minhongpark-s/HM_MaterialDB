@@ -14,6 +14,10 @@
 	<link rel="stylesheet" href="{% static 'DBshow/css/basket.css' %}" />
 	<script type="text/javascript" src="{% static 'DBshow/css/basket.js' %}"></script>
 
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
+    <script src="//code.jquery.com/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
+
     <style>
     .search-table{
         padding: 5%; //10%
@@ -38,6 +42,13 @@
         padding: 3%;
         margin-bottom: 0%;
     }
+    td {
+        text-align: center;
+      }
+    th {
+        text-align: center;
+      }
+
     </style>
 </head>
 
@@ -105,7 +116,10 @@
             </div>
         </form>
     -->
-    <div class="search-table col-6">
+
+    <script> function send() { alert("send"); document.getElementById("contents").submit(); } </script>
+
+    <div class="search-table">
         <div class="search-box">
                     <div class="row">
                         <div class="col-md-3">
@@ -132,10 +146,10 @@
                         <thead>
                             <tr>
                                 <th width="10%">사진</th>
-                                <th width="30%">물품명</th>
-                                <th width="20%">대여가능 수량</th>
-                                <th width="20%">대여가능 수량</th>
-                                <th width="20%">개수</th>
+                                <th width="10%">물품명</th>
+                                <th width="20%">전체 개수</th>
+                                <th width="15%">대여가능 수량</th>
+                                <th width="25%">대여</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -149,9 +163,19 @@
                                     {% endif %}
                                 </div>
                             </td>
-                            <td>{{ p.물품명 }}</td>
-                            <td>{{ r.개수 }}</td>
-                            <td>{{ p.총_개수 }}</td>
+                            <td>{{ p.product_name }}</td>
+                            <td>{{ p.total_num }}</td>
+                            <td>{{ p.rentable_num }}</td>
+                            <td>
+                                <!--
+                                <form method="post" action="{% url 'DBshow:parameter' %}">
+                                    <input name="number" type="number" min="1" width="20px">
+                                    <button type="button" onclick="send();">전송</button>
+                                </form>
+                                -->
+                                <!--<input name="rent_num" id="rent_num" type="number" min="1" width="20px">-->
+                                <a href="{% url 'DBshow:change_rentable_num' p.id  %}" class="btn btn-secondary">대여</a>
+                            </td>
                         </tr>
                         {% endfor %}
 

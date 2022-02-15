@@ -1,0 +1,21 @@
+{% block content %}
+<head>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
+    <script src="//code.jquery.com/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
+</head>
+<div class="card" style="width:20rem; margin:2rem">
+    <div class="container my-3">
+        <h3>{{ db.product_name }}의 대여수량을 입력해주세요.</h3>
+        <form method="post" class="post-form my-3">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="rentable_num"><h4>수량</h4></label>
+                <!--<textarea class="form-control" name="rentable_num" id="rentable_num" rows="3">{{ form.rentable_num.value|default_if_none:'' }}</textarea>-->
+                <input type='number' name="rentable_num" min="0" placeholder="0" style="width:30%">{{ form.rentable_num.value|default_if_none:'' }}</input>
+                <button type="submit" class="btn btn-secondary" style="float:right width:30%">대여하기</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
