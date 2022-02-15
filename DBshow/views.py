@@ -15,13 +15,14 @@ def index(request):
         }
     )
 
-
+'''
 def basket(request):
     return render(
         request,
         'DBshow/basket.html',
     )
-
+'''
+'''
 def check(request):
     db = DB.objects.all()
     num = DB.objects.count()
@@ -35,6 +36,7 @@ def check(request):
             'r' : rent,
         }
     )
+    '''
 
 def testing(request):
     db = DB.objects.all()
@@ -49,15 +51,6 @@ def testing(request):
             'r': rent,
         }
     )
-
-
-def changeDBandRefreshPage(request):
-    if request.method == 'POST':
-        id = request.POST['id']
-        name = request.POST['name']
-        data = {'id': id, 'name': name}
-
-        return render(request, 'DBshow/testing.html', data)
 
 def change_rentable_num(request, rent_id):
     db = get_object_or_404(DB, pk=rent_id)
