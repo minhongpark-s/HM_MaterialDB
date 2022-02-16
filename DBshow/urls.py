@@ -9,6 +9,6 @@ urlpatterns = [
     path('db/', views.index),
     path('testing/', views.testing),
 
-    path('product_database/modify/<int:rent_id>/',views.change_rentable_num,
+    path('product_database/modify/<int:rent_id>/', views.change_rentable_num,
          name="change_rentable_num"),
 ]

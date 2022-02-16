@@ -167,13 +167,6 @@
                             <td>{{ p.total_num }}</td>
                             <td>{{ p.rentable_num }}</td>
                             <td>
-                                <!--
-                                <form method="post" action="{% url 'DBshow:parameter' %}">
-                                    <input name="number" type="number" min="1" width="20px">
-                                    <button type="button" onclick="send();">전송</button>
-                                </form>
-                                -->
-                                <!--<input name="rent_num" id="rent_num" type="number" min="1" width="20px">-->
                                 <a href="{% url 'DBshow:change_rentable_num' p.id  %}" class="btn btn-secondary">대여</a>
                             </td>
                         </tr>
@@ -184,8 +177,5 @@
 
                 </div>
     </div>
-<!--
-<a href="javascript:void(0)" class="abutton" onclick="javascript:basket.addcheckedItem();">장바구니 추가</a>
--->
 </body>
 </html>

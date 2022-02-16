@@ -1,4 +1,7 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse
+
 from .models import DB, Rent
 from .forms import rentForm
 from django.utils import timezone
@@ -61,8 +64,9 @@ def change_rentable_num(request, rent_id):
             db.modifiedTime = timezone.now()
             db.rentable_num = db.rentable_num - db_.rentable_num
             db.save()
-            db_new = DB.objects.all()
-            num = DB.objects.count()
+            #db_new = DB.objects.all()
+            #num = DB.objects.count()
+            '''
             return render(
                 request,
                 'DBshow/testing.html',
@@ -71,10 +75,17 @@ def change_rentable_num(request, rent_id):
                     'n': num,
                 }
             )
+            '''
+            #return HttpResponseRedirect(reverse('127.0.0.1:8000/db/testing/'), request)
+            return redirect('/db/testing/')
     else:
         form = rentForm()
+        db = DB.objects.all()
+        db_spec = get_object_or_404(DB, pk=rent_id)
         context = {'form': form,
-                   'db': db}
+                   'db': db,
+                   'db_spec': db_spec,
+                   }
         return render(request,
                       'DBshow/rent_form.html',
                       context)
