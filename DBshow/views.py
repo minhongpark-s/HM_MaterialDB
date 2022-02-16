@@ -7,7 +7,7 @@ def index(request):
     db = DB.objects.all()
     return render(
         request,
-        'DBshow/index.html',
+        'DBshow/templates/DBshow/index.html',
         {
             'db': db,
         }
@@ -17,7 +17,7 @@ def index(request):
 def basket(request):
     return render(
         request,
-        'DBshow/basket.html',
+        'DBshow/templates/DBshow/basket.html',
     )
 
 def check(request):
@@ -26,7 +26,7 @@ def check(request):
     rent = Rent.objects.all()
     return render(
         request,
-        'DBshow/check.html',
+        'DBshow/templates/DBshow/check.html',
         {
             'db': db,
             'n' : num,
@@ -40,7 +40,7 @@ def testing(request):
     rent = Rent.objects.all()
     return render(
         request,
-        'DBshow/testing.html',
+        'DBshow/templates/DBshow/testing.html',
         {
             'db': db,
             'n': num,

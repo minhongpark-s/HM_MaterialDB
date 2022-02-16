@@ -18,10 +18,15 @@ from django.urls import path, include
 
 from django.conf import settings
 from django.conf.urls.static import static
+from hybo import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('db/', include('DBshow.urls')),
+    path('common/', include('common.urls')),
+    path('', views.index, name='index'),
+    path('common/login/loginok/', views.loginok, name='loginok'),
+    path('hybo/', include('hybo.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
