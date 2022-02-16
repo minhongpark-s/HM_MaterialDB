@@ -141,31 +141,24 @@
                     </div>
                 </div>
         <div class="search-list">
-                    <h3>현재 총 {{ n }} 종류의 물품이 있습니다.</h3>
+                    <h3>현재 총 {{ nr }} 종류의 물품이 있습니다.</h3>
                     <table class="table" id="myTable">
                         <thead>
                             <tr>
                                 <th width="10%">사진</th>
                                 <th width="10%">물품명</th>
-                                <th width="20%">전체 개수</th>
-                                <th width="15%">대여가능 수량</th>
-                                <th width="25%">대여</th>
+                                <th width="20%">대여자</th>
+                                <th width="15%">대여 수량</th>
+                                <th width="25%">반납</th>
                             </tr>
                         </thead>
                         <tbody>
 
-                        {% for p in db %}
+                        {% for p in r %}
                         <tr>
-                            <td>
-                                <div>
-                                    {% if p.image %}
-                                        <img src="{{p.image.url}}" alt="{{p}} head image" width="50%" height="50%">
-                                    {% endif %}
-                                </div>
-                            </td>
                             <td>{{ p.product_name }}</td>
-                            <td>{{ p.total_num }}</td>
-                            <td>{{ p.rentable_num }}</td>
+                            <td>{{ p.name }}</td>
+                            <td>{{ p.rent_num }}</td>
                             <td>
                                 <a href="{% url 'DBshow:change_rentable_num' p.id  %}" class="btn btn-secondary">대여</a>
                             </td>

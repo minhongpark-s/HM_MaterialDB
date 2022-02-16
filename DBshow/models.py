@@ -1,5 +1,6 @@
 from django.db import models
 import os
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -29,7 +30,7 @@ class DB(models.Model):
 class Rent(models.Model):
     rent_code = models.IntegerField()
     #대여번호
-    name = models.CharField(max_length=10)
+    name = models.ForeignKey(User, on_delete=models.CASCADE)
     #회원
     product_name = models.CharField(max_length=30)
     #물품명

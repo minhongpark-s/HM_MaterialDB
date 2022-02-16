@@ -2,9 +2,14 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import DB, Rent
 from .forms import rentForm
 from django.utils import timezone
+from django.contrib.auth import authenticate, login
+from common.forms import UserForm
+from django.contrib.auth.decorators import login_required
+from common.decorators import allowed_users
 
 # Create your views here.
 
+@login_required(login_url='common:login')
 def index(request):
     db = DB.objects.all()
     return render(
@@ -37,7 +42,7 @@ def check(request):
         }
     )
     '''
-
+@login_required(login_url='common:login')
 def testing(request):
     db = DB.objects.all()
     num = DB.objects.count()
@@ -52,6 +57,26 @@ def testing(request):
         }
     )
 
+
+@login_required(login_url='common:login')
+def mypage(request):
+    db = DB.objects.all()
+    num = DB.objects.count()
+    rent = Rent.objects.all()
+    num_r = Rent.objects.count()
+    return render(
+        request,
+        'DBshow/mypage.html',
+        {
+            'db': db,
+            'n': num,
+            'r': rent,
+            'nr': num_r,
+        }
+    )
+
+
+@login_required(login_url='common:login')
 def change_rentable_num(request, rent_id):
     db = get_object_or_404(DB, pk=rent_id)
     if request.method == "POST":
