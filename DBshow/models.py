@@ -30,7 +30,7 @@ class DB(models.Model):
 class Rent(models.Model):
     rent_code = models.IntegerField()
     #대여번호
-    name = models.ForeignKey(User, on_delete=models.CASCADE)
+    name = models.ForeignKey(User, on_delete=models.CASCADE, null = True)
     #회원
     product_name = models.CharField(max_length=30)
     #물품명

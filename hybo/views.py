@@ -13,12 +13,12 @@ import threading
 
 def index(request):
     #return HttpResponse("안녕하세요 pybo에 오신것을 환영합니다.")
-    return render(request, 'hybo/templates/hybo/some.html')
+    return render(request, 'common/templates/common/login.html')
 
 @login_required(login_url='common:login')
 def loginok(request):
-    return render(request, 'hybo/templates/hybo/tom.html')
-
+    #return render(request, 'hybo/templates/hybo/tom.html')
+    return render(request, 'DBshow/templates/DBshow/newpagetesting.html')
 
 
 

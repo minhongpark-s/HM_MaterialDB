@@ -46,6 +46,7 @@ def check(request):
     )
     '''
 @login_required(login_url='common:login')
+@allowed_users(allowed_roles=['하이멕 관리부원', '하이멕 일반부원'])
 def testing(request):
     db = DB.objects.all()
     num = DB.objects.count()
@@ -114,3 +115,18 @@ def change_rentable_num(request, rent_id):
         return render(request,
                       'DBshow/rent_form.html',
                       context)
+
+@login_required(login_url='common:login')
+def newpagetesting(request):
+    db = DB.objects.all()
+    num = DB.objects.count()
+    rent = Rent.objects.all()
+    return render(
+        request,
+        'DBshow/newpagetesting.html',
+        {
+            'db': db,
+            'n': num,
+            'r': rent,
+        }
+    )
