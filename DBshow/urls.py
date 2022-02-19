@@ -12,4 +12,6 @@ urlpatterns = [
     path('product_database/modify/<int:rent_id>/', views.change_rentable_num,
          name="change_rentable_num"),
     path('mypage/', views.mypage),
+    #path('product_database/modify_again/<char:product_name>/', views.change_rent_num,
+         #name="change_rent_num"),
 ]

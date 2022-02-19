@@ -1,5 +1,5 @@
 from django import forms
-from DBshow.models import DB
+from DBshow.models import DB, Rent
 
 
 class rentForm(forms.ModelForm):
