@@ -63,7 +63,7 @@ def testing(request):
 
 
 @login_required(login_url='common:login')
-def mypage(request):
+def my_page(request):
     db = DB.objects.all()
     num = DB.objects.count()
     rent = Rent.objects.all()

@@ -30,7 +30,7 @@ class DB(models.Model):
 class Rent(models.Model):
     rent_code = models.IntegerField(blank=True, null=True)
     #대여번호
-    name = models.CharField(max_length=10, null=True, blank=True)
+    name = models.CharField(max_length=40, null=True, blank=True)
     #회원
     product_name = models.CharField(max_length=30, null=True, blank=True)
     #물품명
