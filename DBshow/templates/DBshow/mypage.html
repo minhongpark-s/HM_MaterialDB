@@ -167,6 +167,9 @@
                                 <td>{{ p.product_name }}</td>
                                 <td>{{ p.name }}</td>
                                 <td>{{ p.rent_num }}</td>
+                                <td>
+                                <a href="{% url 'DBshow:change_rent_num' p.id  %}" class="btn btn-secondary">반납</a>
+                            </td>
                             </tr>
                             {% endif %}
                         {% endfor %}

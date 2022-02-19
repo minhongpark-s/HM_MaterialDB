@@ -3,12 +3,13 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 
 from .models import DB, Rent
-from .forms import rentForm
+from .forms import rentForm, returnForm
 from django.utils import timezone
 from django.contrib.auth import authenticate, login
 from common.forms import UserForm
 from django.contrib.auth.decorators import login_required
 from common.decorators import allowed_users
+from django.db.models import Q
 
 # Create your views here.
 
@@ -125,21 +126,22 @@ def change_rentable_num(request, rent_id):
 
 
 @login_required(login_url='common:login')
-def change_rent_num(request, product_name):
-    db = get_object_or_404(DB, pk=rent_id)
+def change_rent_num(request, rent_id):
+    rent = get_object_or_404(Rent, pk=rent_id)
     if request.method == "POST":
-        form = rentForm(request.POST)
+        form = returnForm(request.POST)
         if form.is_valid():
-            db_ = form.save(commit=False)
-            db.modifiedTime = timezone.now()
-            db.rentable_num = db.rentable_num - db_.rentable_num
-            db.save()
-            rent = Rent(name=request.user,
-                        product_name=db.product_name,
-                        rent_num=db_.rentable_num,
-                        rent_date=timezone.now()
-                        )
+            rent_ = form.save(commit=False)
+            rent.rent_num = rent.rent_num - rent_.rent_num
             rent.save()
+            dbs = DB.objects.filter(Q(product_name=rent_.product_name))
+            forms = rentForm(dbs)
+            dbs_ = forms.save(commit=False)
+            dbs_.rentable_num = dbs_.rentable_num + rent_.rent_num
+            dbs_.modifiedTime = timezone.now()
+            dbs_.save()
+
+
             #db_new = DB.objects.all()
             #num = DB.objects.count()
             '''
@@ -155,15 +157,17 @@ def change_rent_num(request, product_name):
             #return HttpResponseRedirect(reverse('127.0.0.1:8000/db/testing/'), request)
             return redirect('/db/testing/')
     else:
-        form = rentForm()
+        form = returnForm()
         db = DB.objects.all()
-        db_spec = get_object_or_404(DB, pk=rent_id)
+        rent = Rent.objects.all()
+        rent_spec = get_object_or_404(Rent, pk=rent_id)
         context = {'form': form,
                    'db': db,
-                   'db_spec': db_spec,
+                   'rent_spec': rent_spec,
+                   'rent': rent,
                    }
         return render(request,
-                      'DBshow/rent_form.html',
+                      'DBshow/return_form.html',
                       context)
 
 @login_required(login_url='common:login')

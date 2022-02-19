@@ -9,3 +9,11 @@ class rentForm(forms.ModelForm):
         labels = {
             'rentable_num': 'content',
         }
+
+class returnForm(forms.ModelForm):
+    class Meta:
+        model = Rent
+        fields = ['rent_num']
+        labels = {
+            'rent_num': 'content',
+        }
