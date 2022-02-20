@@ -134,12 +134,10 @@ def change_rent_num(request, rent_id):
             rent_ = form.save(commit=False)
             rent.rent_num = rent.rent_num - rent_.rent_num
             rent.save()
-            dbs = DB.objects.filter(Q(product_name=rent_.product_name))
-            forms = rentForm(dbs)
-            dbs_ = forms.save(commit=False)
-            dbs_.rentable_num = dbs_.rentable_num + rent_.rent_num
-            dbs_.modifiedTime = timezone.now()
-            dbs_.save()
+            dbs = DB.objects.get(product_name=rent.product_name)
+            dbs.rentable_num = dbs.rentable_num + rent_.rent_num
+            dbs.modifiedTime = timezone.now()
+            dbs.save()
 
 
             #db_new = DB.objects.all()
