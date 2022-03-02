@@ -153,7 +153,7 @@ def change_rent_num(request, rent_id):
             )
             '''
             #return HttpResponseRedirect(reverse('127.0.0.1:8000/db/testing/'), request)
-            return redirect('/db/testing/')
+            return redirect('/db/my_page/')
     else:
         form = returnForm()
         db = DB.objects.all()

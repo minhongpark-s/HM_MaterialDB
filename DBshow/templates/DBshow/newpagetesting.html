@@ -1,6 +1,7 @@
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+{% load static %}
 <head>
     <style>
         :root {
@@ -192,15 +193,14 @@ body {
             </li>
           </ul>
         </nav>
-        <h3 class="text-muted">HYMEC</h3>
+        <a class="text-muted" href= "{% url 'DBshow:newpagetesting' %}" style="text-decoration:none; zoom:2.0">HYMEC</a>
       </div>
 
       <div class="jumbotron">
-        <h2 class="display-3">하이멕</h2>
-        <p class="lead">에리카 최고의 학회 하이멕입니다. very nicve very nicvevery nicvevery nicvevery nicvevery nicvevery nicvevery nicve </p></br>
-        <!--<p><a class="btn btn-lg btn-success" href="#" role="button">Sign up today</a></p>-->
-        <!-- Button trigger modal -->
-              <a href="{% url 'DBshow:testing' %}" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">물품 확인/대여</a>
+        <img src="https://user-images.githubusercontent.com/76476451/156351009-e28eea17-e70a-4124-be74-41751879bef3.png" width="40%" height="30%">
+        <h3 class="display-3" >HY-MEC</h3>
+        <p class="lead">Department of Robotics Academy</p>
+        <a href="{% url 'DBshow:testing' %}" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">물품 확인/대여</a>
       </div>
 
       <div class="row marketing">
@@ -228,7 +228,7 @@ body {
       </div>
 
       <footer class="footer">
-        <p>Starter ©<a href="http://lacodeid.com">lacodeid.com</a> 2017</p>
+        <p><a href="http://lacodeid.com">hymec.kr</a> 2022</p>
       </footer>
 <div class="modal" id="exampleModal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">

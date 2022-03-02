@@ -20,8 +20,8 @@
 
     <style>
     .search-table{
-        padding: 5%; //10%
-        margin-top: -2%; //-6%
+        padding: 0%; //10%
+        margin: 0%; //-6%
     }
     .search-box{
         background: #c1c1c1;
@@ -48,85 +48,209 @@
     th {
         text-align: center;
       }
+    :root {
+  --input-padding-x: .75rem;
+  --input-padding-y: .75rem;
+}
+
+body {
+  display: -ms-flexbox;
+  display: -webkit-box;
+  display: flex;
+  -ms-flex-align: center;
+  -ms-flex-pack: center;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: #f5f5f5;
+}
+
+.form-signin {
+  width: 100%;
+  max-width: 420px;
+  padding: 15px;
+  margin: 0 auto;
+}
+
+.form-label-group {
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.form-label-group > input,
+.form-label-group > label {
+  padding: var(--input-padding-y) var(--input-padding-x);
+}
+
+.form-label-group > label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  margin-bottom: 0; /* Override default `<label>` margin */
+  line-height: 1.5;
+  color: #495057;
+  border: 1px solid transparent;
+  border-radius: .25rem;
+  transition: all .1s ease-in-out;
+}
+
+.form-label-group input::-webkit-input-placeholder {
+  color: transparent;
+}
+
+.form-label-group input:-ms-input-placeholder {
+  color: transparent;
+}
+
+.form-label-group input::-ms-input-placeholder {
+  color: transparent;
+}
+
+.form-label-group input::-moz-placeholder {
+  color: transparent;
+}
+
+.form-label-group input::placeholder {
+  color: transparent;
+}
+
+.form-label-group input:not(:placeholder-shown) {
+  padding-top: calc(var(--input-padding-y) + var(--input-padding-y) * (2 / 3));
+  padding-bottom: calc(var(--input-padding-y) / 3);
+}
+
+.form-label-group input:not(:placeholder-shown) ~ label {
+  padding-top: calc(var(--input-padding-y) / 3);
+  padding-bottom: calc(var(--input-padding-y) / 3);
+  font-size: 12px;
+  color: #777;
+}
+/* Space out content a bit */
+body {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+
+/* Everything but the jumbotron gets side spacing for mobile first views */
+.header,
+.marketing,
+.footer {
+  padding-right: 1rem;
+  padding-left: 1rem;
+}
+
+/* Custom page header */
+.header {
+  padding-bottom: 1rem;
+  border-bottom: .05rem solid #e5e5e5;
+}
+/* Make the masthead heading the same height as the navigation */
+.header h3 {
+  margin-top: 0;
+  margin-bottom: 0;
+  line-height: 3rem;
+}
+
+/* Custom page footer */
+.footer {
+  padding-top: 1.5rem;
+  color: #777;
+  border-top: .05rem solid #e5e5e5;
+}
+
+/* Customize container */
+@media (min-width: 48em) {
+  .container {
+    max-width: 46rem;
+  }
+}
+.container-narrow > hr {
+  margin: 2rem 0;
+}
+
+/* Main marketing message and sign up button */
+.jumbotron {
+  text-align: center;
+  border-bottom: .05rem solid #e5e5e5;
+}
+.jumbotron .btn {
+  padding: .75rem 1.5rem;
+  font-size: 1.5rem;
+}
+
+/* Supporting marketing content */
+.marketing {
+  margin: 3rem 0;
+}
+.marketing p + h4 {
+  margin-top: 1.5rem;
+}
+
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 48em) {
+  /* Remove the padding we set earlier */
+  .header,
+  .marketing,
+  .footer {
+    padding-right: 0;
+    padding-left: 0;
+  }
+  /* Space out the masthead */
+  .header {
+    margin-bottom: 2rem;
+  }
+  /* Remove the bottom border on the jumbotron for visual effect */
+  .jumbotron {
+    border-bottom: 0;
+  }
+}
 
     </style>
 </head>
 
 <body>
-    <!--
-	<form name="orderform" id="orderform" method="post" class="orderform" action="/Page" onsubmit="return false;">
 
-            <input type="hidden" name="cmd" value="order">
-            <div class="basketdiv" id="basket">
-                <div class="row head">
-                    <div class="subdiv">
-                        <div class="check">선택</div>
-                        <div class="img">이미지</div>
-                        <div class="pname">물품명</div>
-                    </div>
-                    <div class="subdiv">
+    <div class="container">
+      <div class="header clearfix">
+        <nav>
+          <ul class="nav nav-pills float-right">
+            <li class="nav-item">
+              {% if user.is_authenticated %}
+              <a class="nav-link active" href= "{% url 'common:logout' %}">LogOut</a>
+              {% else %}
+                <a class="nav-link active" href="{% url 'common:login' %}">LogIn</a>
+              {% endif %}
+              <!--<a class="nav-link active" href="http://lacodeid.com">Home <span class="sr-only">(current)</span></a>-->
+            </li>
+            <li class="nav-item">
+              {% if user.is_authenticated %}
+              <a class="nav-link" href="{% url 'DBshow:my_page' %}">MyPage</a>
+              {% else %}
+              <a class="nav-link" href="#">About</a>
+              {% endif %}
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Contact</a>
+            </li>
+          </ul>
+        </nav>
+        <a class="text-muted" href= "{% url 'DBshow:newpagetesting' %}" style="text-decoration:none; zoom:2.0">HYMEC</a>
+      </div>
 
-                        <div class="num">수량</div>
-
-                    </div>
-                    <div class="subdiv">
-
-                        <div class="basketcmd">삭제</div>
-                    </div>
-                    <div class="split"></div>
-                </div>
-
-                <div class="row data">
-                    <div class="subdiv">
-                        <div class="check"><input type="checkbox" name="buy" value="260" checked="" onclick="javascript:basket.checkItem();">&nbsp;</div>
-                        <div class="img"><img src="./img/basket1.jpg" width="60"></div>
-                        <div class="pname">
-                            <span>TX2</span>
-                        </div>
-                    </div>
-                    <div class="subdiv">
-                        <div class="num">
-                            <div class="updown">
-                                <input type="text" name="p_num1" id="p_num1" size="2" maxlength="4" class="p_num" value="2" onkeyup="javascript:basket.changePNum(1);">
-                                <span onclick="javascript:basket.changePNum(1);"><i class="fas fa-arrow-alt-circle-up up"></i></span>
-                                <span onclick="javascript:basket.changePNum(1);"><i class="fas fa-arrow-alt-circle-down down"></i></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="subdiv">
-                        <div class="basketcmd"><a href="javascript:void(0)" class="abutton" onclick="javascript:basket.delItem();">삭제</a></div>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="right-align basketrowcmd">
-                <a href="javascript:void(0)" class="abutton" onclick="javascript:basket.delCheckedItem();">선택상품삭제</a>
-                <a href="javascript:void(0)" class="abutton" onclick="javascript:basket.delAllItem();">장바구니비우기</a>
-            </div>
-
-            <div class="bigtext right-align sumcount" id="sum_p_num">물품갯수: 4개</div>
-            <div class="bigtext right-align box blue summoney" id="sum_p_price">합계금액: 74,200원</div>
-
-            <div id="goorder" class="">
-                <div class="clear"></div>
-                <div class="buttongroup center-align cmd">
-                    <a href="javascript:void(0);">선택한 물품 대여</a>
-                </div>
-            </div>
-        </form>
-    -->
-
-    <script> function send() { alert("send"); document.getElementById("contents").submit(); } </script>
-
-    <div class="search-table">
-        <div class="search-box">
+      <div class="jumbotron" style="height: 600px; overflow: scroll">
+            <div class="search-table">
+                <div class="search-box">
                     <div class="row">
                         <div class="col-md-3">
-                            <h5>Search All Items</h5>
+                            <h5 style="text-align:center;">물품 검색</h5>
                         </div>
                         <div class="col-md-9">
-                            <input type="text" id="myInput" class="form-control" placeholder="Search all items e.g. XL430">
+                            <input type="text" id="myInput" class="form-control" placeholder="다음과 같이 입력해보세요. 예) XL430">
                             <script>
                                 $(document).ready(function () {
                                     $("#myInput").on("keyup", function () {
@@ -140,34 +264,34 @@
                         </div>
                     </div>
                 </div>
-        <div class="search-list">
-                    <h3>현재 총 {{ n }} 종류의 물품이 있습니다.</h3>
-                    <table class="table" id="myTable">
+            <div class="search-list">
+                    <table class="table" id="myTable1">
                         <thead>
                             <tr>
                                 <th width="10%">사진</th>
                                 <th width="10%">물품명</th>
                                 <th width="20%">전체 개수</th>
-                                <th width="15%">대여가능 수량</th>
-                                <th width="25%">대여</th>
+                                <th width="20%">대여가능 수량</th>
+                                <th width="20%">대여</th>
                             </tr>
                         </thead>
-                        <tbody>
 
+                    <table class="table" id="myTable">
+                        <tbody>
                         {% for p in db %}
                         <tr>
-                            <td>
+                            <td width="10%">
                                 <div>
                                     {% if p.image %}
                                         <img src="{{p.image.url}}" alt="{{p}} head image" width="50%" height="50%">
                                     {% endif %}
                                 </div>
                             </td>
-                            <td>{{ p.product_name }}</td>
-                            <td>{{ p.total_num }}</td>
-                            <td>{{ p.rentable_num }}</td>
-                            <td>
-                                <a href="{% url 'DBshow:change_rentable_num' p.id  %}" class="btn btn-secondary">대여</a>
+                            <td width="10%">{{ p.product_name }}</td>
+                            <td width="20%">{{ p.total_num }}</td>
+                            <td width="20%">{{ p.rentable_num }}</td>
+                            <td width="20%">
+                                <a href="{% url 'DBshow:change_rentable_num' p.id  %}" class="btn btn-secondary" style="zoom: 0.5;">대여</a>
                             </td>
                         </tr>
                         {% endfor %}
@@ -175,7 +299,57 @@
                         </tbody>
                     </table>
 
-                </div>
+            </div>
+        </div>
+      </div>
+      <footer class="footer">
+        <p><a href="http://lacodeid.com">HYMEC</a> 2022</p>
+      </footer>
+<div class="modal" id="exampleModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+    <form class="form-signin">
+      <div class="text-center mb-4">
+        <img class="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+        <h1 class="h3 mb-3 font-weight-normal">Floating labels</h1>
+        <p>Build form controls with floating labels via the <code>:placeholder-shown</code> pseudo-element. <a href="https://caniuse.com/#feat=css-placeholder-shown">Works in latest Chrome, Safari, and Firefox.</a></p>
+      </div>
+
+      <div class="form-label-group">
+        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+        <label for="inputEmail">Email address</label>
+      </div>
+
+      <div class="form-label-group">
+        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+        <label for="inputPassword">Password</label>
+      </div>
+
+      <div class="checkbox mb-3">
+        <label>
+          <input type="checkbox" value="remember-me"> Remember me
+        </label>
+      </div>
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+      <p class="mt-5 mb-3 text-muted text-center">© 2017-2018</p>
+    </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
     </div>
+  </div>
+</div>
+
+    </div> <!-- /container -->
 </body>
 </html>
