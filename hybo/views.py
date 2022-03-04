@@ -5,7 +5,7 @@ from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.views.decorators import gzip
 from django.http import StreamingHttpResponse
-#import cv2
+import cv2
 import threading
 
 
@@ -21,7 +21,7 @@ def loginok(request):
     return render(request, 'DBshow/templates/DBshow/newpagetesting.html')
 
 
-"""
+
 class VideoCamera(object):
     def __init__(self):
         self.video = cv2.VideoCapture(0)
@@ -56,5 +56,5 @@ def detectme(request):
     except:  # This is bad! replace it with proper handling
         print("에러입니다...")
         pass
-"""
+
 
