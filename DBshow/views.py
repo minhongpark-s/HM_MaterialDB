@@ -10,6 +10,8 @@ from common.forms import UserForm
 from django.contrib.auth.decorators import login_required
 from common.decorators import allowed_users
 from django.db.models import Q
+import pandas as pd
+import warnings
 
 @login_required(login_url='common:login')
 @allowed_users(allowed_roles=['하이멕 관리부원', '하이멕 일반부원'])
@@ -34,6 +36,34 @@ def my_page(request):
     num = DB.objects.count()
     rent = Rent.objects.all()
     num_r = Rent.objects.count()
+
+    # warnigs 메세지 삭제
+    with warnings.catch_warnings(record=True):
+        warnings.simplefilter("always")
+        # 엑셀 읽어오는 부분
+        df = pd.read_excel(
+            "/Users/Administrator/Desktop/하이멕 물품 분류.xlsx", engine="openpyxl")
+
+    # list 값이 모두 NaN인 데이터 제외
+    data = df.dropna(how='all')
+
+    # 엑셀 데이터 db insert
+    for dbfram in data.itertuples():
+        obj = DB.objects.create(
+            product_name=dbfram.이름,
+            rentable_num=dbfram.개수,
+            total_num=dbfram.개수,
+            registeredTime=timezone.now(),
+            modifiedTime=timezone.now(),
+            tag=dbfram.분류,
+
+        )
+        obj.save()
+
+
+
+
+
     return render(
         request,
         'DBshow/mypage.html',
