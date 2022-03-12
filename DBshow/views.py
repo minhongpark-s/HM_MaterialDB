@@ -11,50 +11,15 @@ from django.contrib.auth.decorators import login_required
 from common.decorators import allowed_users
 from django.db.models import Q
 
-# Create your views here.
-
-@login_required(login_url='common:login')
-def index(request):
-    db = DB.objects.all()
-    return render(
-        request,
-        'DBshow/index.html',
-        {
-            'db': db,
-        }
-    )
-
-'''
-def basket(request):
-    return render(
-        request,
-        'DBshow/basket.html',
-    )
-'''
-'''
-def check(request):
-    db = DB.objects.all()
-    num = DB.objects.count()
-    rent = Rent.objects.all()
-    return render(
-        request,
-        'DBshow/check.html',
-        {
-            'db': db,
-            'n' : num,
-            'r' : rent,
-        }
-    )
-    '''
 @login_required(login_url='common:login')
 @allowed_users(allowed_roles=['하이멕 관리부원', '하이멕 일반부원'])
-def testing(request):
+def Database(request):
     db = DB.objects.all()
     num = DB.objects.count()
     rent = Rent.objects.all()
     return render(
         request,
-        'DBshow/testing.html',
+        'DBshow/Database.html',
         {
             'db': db,
             'n': num,
@@ -103,15 +68,15 @@ def change_rentable_num(request, rent_id):
             '''
             return render(
                 request,
-                'DBshow/testing.html',
+                'DBshow/Database.html',
                 {
                     'db': db_new,
                     'n': num,
                 }
             )
             '''
-            #return HttpResponseRedirect(reverse('127.0.0.1:8000/db/testing/'), request)
-            return redirect('/db/testing/')
+            #return HttpResponseRedirect(reverse('127.0.0.1:8000/db/Database/'), request)
+            return redirect('/db/Database/')
     else:
         form = rentForm()
         db = DB.objects.all()
@@ -145,14 +110,14 @@ def change_rent_num(request, rent_id):
             '''
             return render(
                 request,
-                'DBshow/testing.html',
+                'DBshow/Database.html',
                 {
                     'db': db_new,
                     'n': num,
                 }
             )
             '''
-            #return HttpResponseRedirect(reverse('127.0.0.1:8000/db/testing/'), request)
+            #return HttpResponseRedirect(reverse('127.0.0.1:8000/db/Database/'), request)
             return redirect('/db/my_page/')
     else:
         form = returnForm()

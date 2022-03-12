@@ -22,10 +22,9 @@ from hybo import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('db/', include('DBshow.urls')),
+    path('', include('DBshow.urls')),
     path('common/', include('common.urls')),
     path('hybo/', include('hybo.urls')),
-    path('', views.index, name='index'),
     path('common/login/loginok/', views.loginok, name='loginok'),
 ]
 
