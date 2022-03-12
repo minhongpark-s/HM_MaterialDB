@@ -16,5 +16,5 @@ urlpatterns = [
 
     path('my_page/', views.my_page, name="my_page"),
 
-    path('newpagetesting/', views.newpagetesting, name="newpagetesting")
+    path('main/', views.main, name="main")
 ]

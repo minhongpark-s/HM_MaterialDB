@@ -169,13 +169,13 @@ def change_rent_num(request, rent_id):
                       context)
 
 @login_required(login_url='common:login')
-def newpagetesting(request):
+def main(request):
     db = DB.objects.all()
     num = DB.objects.count()
     rent = Rent.objects.all()
     return render(
         request,
-        'DBshow/newpagetesting.html',
+        'DBshow/main.html',
         {
             'db': db,
             'n': num,

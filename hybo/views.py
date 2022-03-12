@@ -18,7 +18,7 @@ def index(request):
 @login_required(login_url='common:login')
 def loginok(request):
     #return render(request, 'hybo/templates/hybo/tom.html')
-    return render(request, 'DBshow/templates/DBshow/newpagetesting.html')
+    return render(request, 'DBshow/templates/DBshow/main.html')
 
 
 
