@@ -76,7 +76,7 @@ def change_rentable_num(request, rent_id):
             )
             '''
             #return HttpResponseRedirect(reverse('127.0.0.1:8000/db/Database/'), request)
-            return redirect('/db/Database/')
+            return redirect('/Database/')
     else:
         form = rentForm()
         db = DB.objects.all()
@@ -118,7 +118,7 @@ def change_rent_num(request, rent_id):
             )
             '''
             #return HttpResponseRedirect(reverse('127.0.0.1:8000/db/Database/'), request)
-            return redirect('/db/my_page/')
+            return redirect('/my_page/')
     else:
         form = returnForm()
         db = DB.objects.all()

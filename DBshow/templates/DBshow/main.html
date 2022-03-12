@@ -1,8 +1,20 @@
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!DOCTYPE html>
 {% load static %}
 <head>
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/4877001cdd.js" crossorigin="anonymous"></script>
+
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+	<script type="text/javascript" src="{% static 'DBshow/css/basket.js' %}"></script>
+
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
+    <script src="//code.jquery.com/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="{% static 'css/search-table.css' %}">
+
     <style>
         :root {
   --input-padding-x: .75rem;
@@ -10,6 +22,8 @@
 }
 
 body {
+  background: #f7f7ff;
+  margin-top:20px;
   display: -ms-flexbox;
   display: -webkit-box;
   display: flex;
@@ -197,7 +211,7 @@ body {
         <img src="https://user-images.githubusercontent.com/76476451/156351009-e28eea17-e70a-4124-be74-41751879bef3.png" width="40%" height="30%">
         <h3 class="display-3" >HY-MEC</h3>
         <p class="lead">Department of Robotics Academy</p>
-        <a href="{% url 'DBshow:Database' %}" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">물품 확인/대여</a>
+        <a href="{% url 'DBshow:Database' %}" class="btn btn-primary">물품 확인/대여</a>
       </div>
 
       <div class="row marketing">
