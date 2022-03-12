@@ -7,6 +7,8 @@ app_name='DBshow'
 urlpatterns = [
     path('', views.main),
     path('Database/', views.Database, name="Database"),
+    path('xlsxAdd/', views.xlsxAdd, name="xlsxAdd"),
+    path('DeleteDB/', views.DeleteDB, name="DeleteDB"),
     path('product_database/modify/<int:rent_id>/', views.change_rentable_num,
          name="change_rentable_num"),
 

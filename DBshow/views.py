@@ -14,7 +14,7 @@ import pandas as pd
 import warnings
 
 @login_required(login_url='common:login')
-@allowed_users(allowed_roles=['하이멕 관리부원', '하이멕 일반부원'])
+@allowed_users(allowed_roles=['하이멕 관리부원', '하이멕 일반부원', '관리자'])
 def Database(request):
     db = DB.objects.all()
     num = DB.objects.count()
@@ -29,9 +29,9 @@ def Database(request):
         }
     )
 
-
 @login_required(login_url='common:login')
-def my_page(request):
+@allowed_users(allowed_roles=['관리자'])
+def xlsxAdd(request):
     db = DB.objects.all()
     num = DB.objects.count()
     rent = Rent.objects.all()
@@ -42,7 +42,7 @@ def my_page(request):
         warnings.simplefilter("always")
         # 엑셀 읽어오는 부분
         df = pd.read_excel(
-            "/Users/Administrator/Desktop/하이멕 물품 분류.xlsx", engine="openpyxl")
+            "/하이멕 물품 분류.xlsx", engine="openpyxl")
 
     # list 값이 모두 NaN인 데이터 제외
     data = df.dropna(how='all')
@@ -60,9 +60,46 @@ def my_page(request):
         )
         obj.save()
 
+    return render(
+        request,
+        'DBshow/mypage.html',
+        {
+            'db': db,
+            'n': num,
+            'r': rent,
+            'nr': num_r,
+        }
+    )
+
+@login_required(login_url='common:login')
+@allowed_users(allowed_roles=['관리자'])
+def DeleteDB(request):
+    db = DB.objects.all()
+    num = DB.objects.count()
+    rent = Rent.objects.all()
+    num_r = Rent.objects.count()
+
+    DB.objects.all().delete()
+    Rent.objects.all().delete()
+
+    return render(
+        request,
+        'DBshow/mypage.html',
+        {
+            'db': db,
+            'n': num,
+            'r': rent,
+            'nr': num_r,
+        }
+    )
 
 
-
+@login_required(login_url='common:login')
+def my_page(request):
+    db = DB.objects.all()
+    num = DB.objects.count()
+    rent = Rent.objects.all()
+    num_r = Rent.objects.count()
 
     return render(
         request,
