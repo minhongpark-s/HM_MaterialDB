@@ -15,6 +15,8 @@ class DB(models.Model):
     image=models.ImageField(upload_to='blog/images/%Y/%m/%d/', blank=True)
     file_upload = models.FileField(upload_to='blog/files/%Y/%m/%d/', blank=True)
 
+    tag = models.CharField(max_length=128)
+
     def __str__(self):
         return f'[{self.pk}]{self.product_name}'
 

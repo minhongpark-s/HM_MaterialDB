@@ -234,9 +234,6 @@ body {
               <a class="nav-link" href="#">About</a>
               {% endif %}
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Contact</a>
-            </li>
           </ul>
         </nav>
         <a class="text-muted" href= "{% url 'DBshow:newpagetesting' %}" style="text-decoration:none; zoom:2.0">HYMEC</a>
@@ -269,10 +266,12 @@ body {
                         <thead>
                             <tr>
                                 <th width="10%">사진</th>
-                                <th width="10%">물품명</th>
-                                <th width="20%">전체 개수</th>
+                                <th width="10%">&nbsp물품명</th>
+                                <th width="15%">전체 개수</th>
                                 <th width="20%">대여가능 수량</th>
-                                <th width="20%">대여</th>
+                                <th style="display:none"> 태그</th>
+                                <th width="10%">&nbsp태그</th>
+                                <th width="15%">대여</th>
                             </tr>
                         </thead>
 
@@ -288,9 +287,11 @@ body {
                                 </div>
                             </td>
                             <td width="10%">{{ p.product_name }}</td>
-                            <td width="20%">{{ p.total_num }}</td>
+                            <td width="15%">{{ p.total_num }}</td>
                             <td width="20%">{{ p.rentable_num }}</td>
-                            <td width="20%">
+                            <td style="display:none">{{ p.tag }}</td>
+                            <td width="10%" title="{{ p.tag }}">보기</td>
+                            <td width="15%">
                                 <a href="{% url 'DBshow:change_rentable_num' p.id  %}" class="btn btn-secondary" style="zoom: 0.5;">대여</a>
                             </td>
                         </tr>
