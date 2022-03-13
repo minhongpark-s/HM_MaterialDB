@@ -130,20 +130,22 @@ def change_rentable_num(request, rent_id):
                         rent_date=timezone.now()
                         )
             rent.save()
-            #db_new = DB.objects.all()
-            #num = DB.objects.count()
-            '''
+            db_new = DB.objects.all()
+            num = DB.objects.count()
+            rent = Rent.objects.all()
+            num_r = Rent.objects.count()
             return render(
                 request,
                 'DBshow/Database.html',
                 {
                     'db': db_new,
                     'n': num,
+                    'r': rent,
+                    'nr': num_r,
                 }
             )
-            '''
             #return HttpResponseRedirect(reverse('127.0.0.1:8000/db/Database/'), request)
-            return redirect('/Database/')
+            #return redirect('/Database/')
     else:
         form = rentForm()
         db = DB.objects.all()
