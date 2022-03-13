@@ -11,14 +11,20 @@
 	<meta name="viewport" content="width=device-width">
 	<title>물품 대여 주문 목록 작성</title>
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
-	<link rel="stylesheet" href="{% static 'DBshow/css/basket.css' %}" />
-	<script type="text/javascript" src="{% static 'DBshow/css/basket.js' %}"></script>
 
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
     <script src="//code.jquery.com/jquery.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
 
+	<!-- https://bootsnipp.com/snippets/D2v11 -->
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+	<!-- https://bootsnipp.com/snippets/35V6b -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+
     <style>
+
+    /* 검색 테이블 관련 css입니다. */
     .search-table{
         padding: 0%; //10%
         margin: 0%; //-6%
@@ -48,169 +54,344 @@
     th {
         text-align: center;
       }
+
     :root {
   --input-padding-x: .75rem;
   --input-padding-y: .75rem;
-}
+    }
 
+    body {
+      background: #f7f7ff;
+      margin-top:20px;
+      display: -ms-flexbox;
+      display: -webkit-box;
+      display: flex;
+      -ms-flex-align: center;
+      -ms-flex-pack: center;
+      -webkit-box-align: center;
+      align-items: center;
+      -webkit-box-pack: center;
+      justify-content: center;
+      padding-top: 40px;
+      padding-bottom: 40px;
+      background-color: #f5f5f5;
+    }
+
+    .form-signin {
+      width: 100%;
+      max-width: 420px;
+      padding: 15px;
+      margin: 0 auto;
+    }
+
+    .form-label-group {
+      position: relative;
+      margin-bottom: 1rem;
+    }
+
+    .form-label-group > input,
+    .form-label-group > label {
+      padding: var(--input-padding-y) var(--input-padding-x);
+    }
+
+    .form-label-group > label {
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: block;
+      width: 100%;
+      margin-bottom: 0; /* Override default `<label>` margin */
+      line-height: 1.5;
+      color: #495057;
+      border: 1px solid transparent;
+      border-radius: .25rem;
+      transition: all .1s ease-in-out;
+    }
+
+    .form-label-group input::-webkit-input-placeholder {
+      color: transparent;
+    }
+
+    .form-label-group input:-ms-input-placeholder {
+      color: transparent;
+    }
+
+    .form-label-group input::-ms-input-placeholder {
+      color: transparent;
+    }
+
+    .form-label-group input::-moz-placeholder {
+      color: transparent;
+    }
+
+    .form-label-group input::placeholder {
+      color: transparent;
+    }
+
+    .form-label-group input:not(:placeholder-shown) {
+      padding-top: calc(var(--input-padding-y) + var(--input-padding-y) * (2 / 3));
+      padding-bottom: calc(var(--input-padding-y) / 3);
+    }
+
+    .form-label-group input:not(:placeholder-shown) ~ label {
+      padding-top: calc(var(--input-padding-y) / 3);
+      padding-bottom: calc(var(--input-padding-y) / 3);
+      font-size: 12px;
+      color: #777;
+    }
+    /* Space out content a bit */
+    body {
+      padding-top: 1.5rem;
+      padding-bottom: 1.5rem;
+    }
+
+    /* Everything but the jumbotron gets side spacing for mobile first views */
+    .header,
+    .marketing,
+    .footer {
+      padding-right: 1rem;
+      padding-left: 1rem;
+    }
+
+    /* Custom page header */
+    .header {
+      padding-bottom: 1rem;
+      border-bottom: .05rem solid #e5e5e5;
+    }
+    /* Make the masthead heading the same height as the navigation */
+    .header h3 {
+      margin-top: 0;
+      margin-bottom: 0;
+      line-height: 3rem;
+    }
+
+    /* Custom page footer */
+    .footer {
+      padding-top: 1.5rem;
+      color: #777;
+      border-top: .05rem solid #e5e5e5;
+    }
+
+    /* Customize container */
+    @media (min-width: 48em) {
+      .container {
+        max-width: 46rem;
+      }
+    }
+    .container-narrow > hr {
+      margin: 2rem 0;
+    }
+
+    /* Main marketing message and sign up button */
+    .jumbotron {
+      text-align: center;
+      border-bottom: .05rem solid #e5e5e5;
+    }
+    .jumbotron .btn {
+      padding: .75rem 1.5rem;
+      font-size: 1.5rem;
+    }
+
+    /* Supporting marketing content */
+    .marketing {
+      margin: 3rem 0;
+    }
+    .marketing p + h4 {
+      margin-top: 1.5rem;
+    }
+
+    /* Responsive: Portrait tablets and up */
+    @media screen and (min-width: 48em) {
+      /* Remove the padding we set earlier */
+      .header,
+      .marketing,
+      .footer {
+        padding-right: 0;
+        padding-left: 0;
+      }
+      /* Space out the masthead */
+      .header {
+        margin-bottom: 2rem;
+      }
+      /* Remove the bottom border on the jumbotron for visual effect */
+      .jumbotron {
+        border-bottom: 0;
+      }
+    }
+
+    /* 테이블 필터 관련 */
+    /*    --------------------------------------------------
+	:: General
+	-------------------------------------------------- */
 body {
-  background: #f7f7ff;
-  margin-top:20px;
-  display: -ms-flexbox;
-  display: -webkit-box;
-  display: flex;
-  -ms-flex-align: center;
-  -ms-flex-pack: center;
-  -webkit-box-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  justify-content: center;
-  padding-top: 40px;
-  padding-bottom: 40px;
-  background-color: #f5f5f5;
+	font-family: 'Open Sans', sans-serif;
+	color: #353535;
+}
+.content h1 {
+	text-align: center;
+}
+.content .content-footer p {
+	color: #6d6d6d;
+    font-size: 12px;
+    text-align: center;
+}
+.content .content-footer p a {
+	color: inherit;
+	font-weight: bold;
 }
 
-.form-signin {
-  width: 100%;
-  max-width: 420px;
-  padding: 15px;
-  margin: 0 auto;
+/*	--------------------------------------------------
+	:: Table Filter
+	-------------------------------------------------- */
+.panel {
+	border: 1px solid #ddd;
+	background-color: #fcfcfc;
+}
+.panel .btn-group {
+	margin: 15px 0 30px;
+}
+.panel .btn-group .btn {
+	transition: background-color .3s ease;
+}
+.table-filter {
+	background-color: #fff;
+	border-bottom: 1px solid #eee;
+}
+.table-filter tbody tr:hover {
+	cursor: pointer;
+	background-color: #eee;
+}
+.table-filter tbody tr td {
+	padding: 10px;
+	vertical-align: middle;
+	border-top-color: #eee;
+}
+.table-filter tbody tr.selected td {
+	background-color: #eee;
+}
+.table-filter tr td:first-child {
+	width: 38px;
+}
+.table-filter tr td:nth-child(2) {
+	width: 35px;
+}
+.ckbox {
+	position: relative;
+}
+.ckbox input[type="checkbox"] {
+	opacity: 0;
+}
+.ckbox label {
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+.ckbox label:before {
+	content: '';
+	top: 1px;
+	left: 0;
+	width: 18px;
+	height: 18px;
+	display: block;
+	position: absolute;
+	border-radius: 2px;
+	border: 1px solid #bbb;
+	background-color: #fff;
+}
+.ckbox input[type="checkbox"]:checked + label:before {
+	border-color: #2BBCDE;
+	background-color: #2BBCDE;
+}
+.ckbox input[type="checkbox"]:checked + label:after {
+	top: 3px;
+	left: 3.5px;
+	content: '\e013';
+	color: #fff;
+	font-size: 11px;
+	font-family: 'Glyphicons Halflings';
+	position: absolute;
+}
+.table-filter .star {
+	color: #ccc;
+	text-align: center;
+	display: block;
+}
+.table-filter .star.star-checked {
+	color: #F0AD4E;
+}
+.table-filter .star:hover {
+	color: #ccc;
+}
+.table-filter .star.star-checked:hover {
+	color: #F0AD4E;
+}
+.table-filter .media-photo {
+	width: 35px;
+}
+.table-filter .media-body {
+    display: block;
+    /* Had to use this style to force the div to expand (wasn't necessary with my bootstrap version 3.3.6) */
+}
+.table-filter .media-meta {
+	font-size: 11px;
+	color: #999;
+}
+.table-filter .media .title {
+	color: #2BBCDE;
+	font-size: 14px;
+	font-weight: bold;
+	line-height: normal;
+	margin: 0;
+}
+.table-filter .media .title span {
+	font-size: .8em;
+	margin-right: 20px;
+}
+.table-filter .media .title span.pagado {
+	color: #5cb85c;
+}
+.table-filter .media .title span.pendiente {
+	color: #f0ad4e;
+}
+.table-filter .media .title span.cancelado {
+	color: #d9534f;
+}
+.table-filter .media .summary {
+	font-size: 14px;
+}
+.pull-right.보드 {
+	color: blue;
+}
+.pull-right.모터 {
+	color: green;
+}
+.pull-right.센서 {
+	color: orange;
+}
+.pull-right.전자.부품 {
+	color: red;
+}
+.pull-right.도구 {
+	color: gray;
+}
+.pull-right.기타 {
+	color: black;
 }
 
-.form-label-group {
-  position: relative;
-  margin-bottom: 1rem;
+/* https://bootsnipp.com/snippets/35V6b search box */
+
+.form-control-borderless {
+    border: none;
 }
 
-.form-label-group > input,
-.form-label-group > label {
-  padding: var(--input-padding-y) var(--input-padding-x);
+.form-control-borderless:hover, .form-control-borderless:active, .form-control-borderless:focus {
+    border: none;
+    outline: none;
+    box-shadow: none;
 }
 
-.form-label-group > label {
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: block;
-  width: 100%;
-  margin-bottom: 0; /* Override default `<label>` margin */
-  line-height: 1.5;
-  color: #495057;
-  border: 1px solid transparent;
-  border-radius: .25rem;
-  transition: all .1s ease-in-out;
-}
 
-.form-label-group input::-webkit-input-placeholder {
-  color: transparent;
-}
-
-.form-label-group input:-ms-input-placeholder {
-  color: transparent;
-}
-
-.form-label-group input::-ms-input-placeholder {
-  color: transparent;
-}
-
-.form-label-group input::-moz-placeholder {
-  color: transparent;
-}
-
-.form-label-group input::placeholder {
-  color: transparent;
-}
-
-.form-label-group input:not(:placeholder-shown) {
-  padding-top: calc(var(--input-padding-y) + var(--input-padding-y) * (2 / 3));
-  padding-bottom: calc(var(--input-padding-y) / 3);
-}
-
-.form-label-group input:not(:placeholder-shown) ~ label {
-  padding-top: calc(var(--input-padding-y) / 3);
-  padding-bottom: calc(var(--input-padding-y) / 3);
-  font-size: 12px;
-  color: #777;
-}
-/* Space out content a bit */
-body {
-  padding-top: 1.5rem;
-  padding-bottom: 1.5rem;
-}
-
-/* Everything but the jumbotron gets side spacing for mobile first views */
-.header,
-.marketing,
-.footer {
-  padding-right: 1rem;
-  padding-left: 1rem;
-}
-
-/* Custom page header */
-.header {
-  padding-bottom: 1rem;
-  border-bottom: .05rem solid #e5e5e5;
-}
-/* Make the masthead heading the same height as the navigation */
-.header h3 {
-  margin-top: 0;
-  margin-bottom: 0;
-  line-height: 3rem;
-}
-
-/* Custom page footer */
-.footer {
-  padding-top: 1.5rem;
-  color: #777;
-  border-top: .05rem solid #e5e5e5;
-}
-
-/* Customize container */
-@media (min-width: 48em) {
-  .container {
-    max-width: 46rem;
-  }
-}
-.container-narrow > hr {
-  margin: 2rem 0;
-}
-
-/* Main marketing message and sign up button */
-.jumbotron {
-  text-align: center;
-  border-bottom: .05rem solid #e5e5e5;
-}
-.jumbotron .btn {
-  padding: .75rem 1.5rem;
-  font-size: 1.5rem;
-}
-
-/* Supporting marketing content */
-.marketing {
-  margin: 3rem 0;
-}
-.marketing p + h4 {
-  margin-top: 1.5rem;
-}
-
-/* Responsive: Portrait tablets and up */
-@media screen and (min-width: 48em) {
-  /* Remove the padding we set earlier */
-  .header,
-  .marketing,
-  .footer {
-    padding-right: 0;
-    padding-left: 0;
-  }
-  /* Space out the masthead */
-  .header {
-    margin-bottom: 2rem;
-  }
-  /* Remove the bottom border on the jumbotron for visual effect */
-  .jumbotron {
-    border-bottom: 0;
-  }
-}
 
     </style>
 </head>
@@ -240,71 +421,129 @@ body {
         </nav>
         <a class="text-muted" href= "{% url 'DBshow:main' %}" style="text-decoration:none; zoom:2.0">HYMEC</a>
       </div>
+        <div class="jumbotron" style="height: 600px; overflow: scroll">
+			<div class="container">
+					<section class="content">
+							<div class="panel panel-default">
+								<div class="panel-body">
+									<br/>
+									<form class="card card-sm" style="zoom:0.5; margin-left:5%; margin-right:5%;">
+										<div class="card-body row no-gutters align-items-center">
+											<div class="col-auto">
+												<i class="fas fa-search h4 text-body"></i>
+											</div>
+											<!--end of col-->
+											<div class="col">
+												<input class="form-control form-control-lg form-control-borderless" id="search_input" type="search" placeholder="물품이나 태그를 검색해보세요 ex) 라즈베리파이">
+												<script>
+													$(document).ready(function () {
+														$("#search_input").on("keyup", function () {
+															var value = $(this).val().toLowerCase();
+															$("#search_table tr").filter(function () {
+																$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+															});
+														});
+													});
+												</script>
+											</div>
+											<!--end of col-->
+											<div class="col-auto">
+												<button class="btn btn-lg btn-success" type="submit">Search</button>
+											</div>
+											<!--end of col-->
+										</div>
+									</form>
+										<!--end of col-->
+									<div class="pull-right">
+										<div class="btn-group" style="zoom:0.5;">
+											<script>
+												$(document).ready(function () {
+													$('.star').on('click', function () {
+													  $(this).toggleClass('star-checked');
+													});
 
-      <div class="jumbotron" style="height: 600px; overflow: scroll">
-            <div class="search-table">
-                <div class="search-box">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <h5 style="text-align:center;">물품 검색</h5>
-                        </div>
-                        <div class="col-md-9">
-                            <input type="text" id="myInput" class="form-control" placeholder="다음과 같이 입력해보세요. 예) XL430">
-                            <script>
-                                $(document).ready(function () {
-                                    $("#myInput").on("keyup", function () {
-                                        var value = $(this).val().toLowerCase();
-                                        $("#myTable tr").filter(function () {
-                                            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-                                        });
-                                    });
-                                });
-                            </script>
-                        </div>
-                    </div>
-                </div>
-            <div class="search-list">
-                    <table class="table" id="myTable1">
-                        <thead>
-                            <tr>
-                                <th width="10%">사진</th>
-                                <th width="10%">&nbsp물품명</th>
-                                <th width="15%">전체 개수</th>
-                                <th width="20%">대여가능 수량</th>
-                                <th style="display:none"> 태그</th>
-                                <th width="10%">&nbsp태그</th>
-                                <th width="15%">대여</th>
-                            </tr>
-                        </thead>
+													$('.ckbox label').on('click', function () {
+													  $(this).parents('tr').toggleClass('selected');
+													});
 
-                    <table class="table" id="myTable">
-                        <tbody>
-                        {% for p in db %}
-                        <tr>
-                            <td width="10%">
-                                <div>
-                                    {% if p.image %}
-                                        <img src="{{p.image.url}}" alt="{{p}} head image" width="50%" height="50%">
-                                    {% endif %}
-                                </div>
-                            </td>
-                            <td width="10%">{{ p.product_name }}</td>
-                            <td width="15%">{{ p.total_num }}</td>
-                            <td width="20%">{{ p.rentable_num }}</td>
-                            <td style="display:none">{{ p.tag }}</td>
-                            <td width="10%" title="{{ p.tag }}">보기</td>
-                            <td width="15%">
-                                <a href="{% url 'DBshow:change_rentable_num' p.id  %}" class="btn btn-secondary" style="zoom: 0.5;">대여</a>
-                            </td>
-                        </tr>
-                        {% endfor %}
+													$('.btn-filter').on('click', function () {
+													  var $target = $(this).data('target');
+													  if ($target != 'all') {
+														$('.table tr').css('display', 'none');
+														$('.table tr[data-status="' + $target + '"]').fadeIn('slow');
+													  } else {
+														$('.table tr').css('display', 'none').fadeIn('slow');
+													  }
+													});
 
-                        </tbody>
-                    </table>
+												 });
+											</script>
+											<button type="button" class="btn btn-info btn-filter" data-target="보드">보드</button>
+											<button type="button" class="btn btn-success btn-filter" data-target="모터">모터</button>
+											<button type="button" class="btn btn-warning btn-filter" data-target="센서">센서</button>
+											<button type="button" class="btn btn-danger btn-filter" data-target="전자 부품">전자 부품</button>
+											<button type="button" class="btn btn-secondary btn-filter" style="color:white;" data-target="도구">도구</button>
+											<button type="button" class="btn btn-dark btn-filter" style="color:white;" data-target="기타">기타</button>
+											<button type="button" class="btn btn-default btn-filter" data-target="all">초기화</button>
 
-            </div>
-        </div>
-      </div>
+										</div>
+									</div>
+									<div class="table-container">
+										<table class="table table-filter" id="search_table">
+											<tbody>
+												{% for p in db %}
+												<tr data-status="{{p.tag}}">
+													<td>
+														<div class="ckbox">
+															<input type="checkbox" id="checkbox1">
+															<label for="checkbox1"></label>
+														</div>
+													</td>
+													<td>
+													</td>
+													<td>
+														<div class="media">
+                                                            {% if p.image %}
+                                                                <img src="{{p.image.url}}" alt="{{p}} head image" width="25%" height="25%">
+                                                            {% else %}
+                                                                <img src="https://user-images.githubusercontent.com/76476451/158047405-3b521371-f239-44ec-9503-87020d79d565.jpg" alt="{{p}} head image" width="25%" height="25%">
+                                                            {% endif %}
+															<div class="media-body">
+																<span class="media-meta pull-right">{{ p.registeredTime }}</span>
+																<h4 class="title">
+																	{{ p.product_name }}
+																	<span class="pull-right {{ p.tag }}">({{p.tag}})</span>
+																</h4>
+																<p class="summary">대여 가능 수량은 {{p.total_num }}개 중 {{p.rentable_num }}개입니다.</p>
+															</div>
+														</div>
+													</td>
+													{% if p.rentable_num != 0 %}
+													<td>
+														<a href="{% url 'DBshow:change_rentable_num' p.id  %}" class="btn btn-success btn-xs" style="zoom: 0.5;">대여</a>
+													</td>
+													{% else %}
+													<td>
+														<a class="btn btn-danger btn-lg" style="zoom: 0.5; color: white;">재고 없음</a>
+													</td>
+													{% endif %}
+												</tr>
+												{% endfor %}
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+							<div class="content-footer">
+								<p>
+									<br>
+									since 2022 <br>
+									Powered By <a href="https://github.com/minhongpark-s/HM_MaterialDB" target="_blank">HYMEC</a>
+								</p>
+							</div>
+					</section>
+			</div>
+		</div>
       <footer class="footer">
         <p><a href="http://lacodeid.com">HYMEC</a> 2022</p>
       </footer>

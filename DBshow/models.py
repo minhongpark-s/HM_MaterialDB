@@ -12,7 +12,7 @@ class DB(models.Model):
     registeredTime = models.DateTimeField(auto_now_add=True)
     modifiedTime = models.DateTimeField(auto_now=True)
 
-    image=models.ImageField(upload_to='blog/images/%Y/%m/%d/', blank=True)
+    image=models.ImageField(upload_to='DBshow/images/%Y/%m/%d/', blank=True)
     file_upload = models.FileField(upload_to='blog/files/%Y/%m/%d/', blank=True)
 
     tag = models.CharField(max_length=128)
