@@ -14,7 +14,6 @@ import pandas as pd
 import warnings
 
 @login_required(login_url='common:login')
-@allowed_users(allowed_roles=['하이멕 관리부원', '하이멕 일반부원', '관리자'])
 def Database(request):
     db = DB.objects.all()
     num = DB.objects.count()
@@ -42,7 +41,7 @@ def xlsxAdd(request):
         warnings.simplefilter("always")
         # 엑셀 읽어오는 부분
         df = pd.read_excel(
-            "/하이멕 물품 분류.xlsx", engine="openpyxl")
+            "/home/ubuntu/fileShare/share/excel_.xlsx", engine="openpyxl")
 
     # list 값이 모두 NaN인 데이터 제외
     data = df.dropna(how='all')
@@ -50,12 +49,12 @@ def xlsxAdd(request):
     # 엑셀 데이터 db insert
     for dbfram in data.itertuples():
         obj = DB.objects.create(
-            product_name=dbfram.이름,
-            rentable_num=dbfram.개수,
-            total_num=dbfram.개수,
+            product_name=dbfram.name,
+            rentable_num=dbfram.number,
+            total_num=dbfram.number,
             registeredTime=timezone.now(),
             modifiedTime=timezone.now(),
-            tag=dbfram.분류,
+            tag=dbfram.tag,
 
         )
         obj.save()
@@ -115,6 +114,7 @@ def my_page(request):
 
 
 @login_required(login_url='common:login')
+@allowed_users(allowed_roles=['관리자','하이멕 임원진','하이멕 관리부원', '하이멕 일반부원'])
 def change_rentable_num(request, rent_id):
     db = get_object_or_404(DB, pk=rent_id)
     if request.method == "POST":
@@ -160,6 +160,7 @@ def change_rentable_num(request, rent_id):
 
 
 @login_required(login_url='common:login')
+@allowed_users(allowed_roles=['관리자','하이멕 임원진','하이멕 관리부원', '하이멕 일반부원'])
 def change_rent_num(request, rent_id):
     rent = get_object_or_404(Rent, pk=rent_id)
     if request.method == "POST":

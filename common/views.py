@@ -17,7 +17,7 @@ def signup(request):
             studentNumber = request.POST['studentNumber']
             user = authenticate(username=username, password=raw_password)  # 사용자 인증
             login(request, user)  # 로그인
-            return redirect('index')
+            return redirect('DBshow:main')
     else:
         form = UserForm()
     return render(request, 'common/templates/common/signup.html', {'form': form})
@@ -26,3 +26,9 @@ def signup(request):
 @allowed_users(allowed_roles=['하이멕 관리부원','하이멕 일반부원'])
 def okok(request):
     return render(request, 'common/templates/common/okok.html')
+    
+def page_not_found(request, exception):
+    """
+    404 Page not found
+    """
+    return render(request, 'common/404.html', {})
