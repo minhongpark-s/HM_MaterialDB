@@ -2,8 +2,8 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 
-from .models import DB, Rent
-from .forms import rentForm, returnForm
+from .models import DB, Rent, LCdata
+from .forms import rentForm, returnForm, LCForm
 from django.utils import timezone
 from django.contrib.auth import authenticate, login
 from common.forms import UserForm
@@ -12,6 +12,70 @@ from common.decorators import allowed_users
 from django.db.models import Q
 import pandas as pd
 import warnings
+
+@login_required(login_url='common:login')
+def LC(request):
+    return render(
+        request,
+        'DBshow/LC_form.html'
+    )
+
+@login_required(login_url='common:login')
+def LC_reserve(request):
+    if request.method == "POST":
+        '''
+        return render(
+            request,
+            'DBshow/LC_form.html',
+        )
+        '''
+        form = LCForm(request.POST)
+        '''
+        return render(
+            request,
+            'DBshow/LC_form.html',
+            {
+                'form':form,
+            }
+        )
+        '''
+        if form.is_valid():
+            form_ = form.save(commit=False)
+            '''
+            return render(
+                request,
+                'DBshow/LC_form.html',
+                {
+                    'form_':form_,
+                }
+            )
+            '''
+            obj = LCdata.objects.create(
+                LC_rent_name=request.user.username,
+                LC_phone_number=form_.LC_phone_number,
+                LC_purpose=form_.LC_purpose,
+                LC_availTime=form_.LC_availTime,
+                LC_thickness=form_.LC_thickness,
+                LC_width=form_.LC_width,
+                LC_height=form_.LC_height,
+                LC_who=form_.LC_who,
+            )
+            obj.save()
+        #else:
+            return redirect('/main/')
+
+            #return HttpResponseRedirect(reverse('127.0.0.1:8000/main/'), request)
+            #return redirect('/Database/')
+            #return redirect('/main/')
+    else:
+        form = LCForm()
+        context = {
+            'form': form,
+                   }
+        return render(request,
+                      'DBshow/LC_form.html',
+                      context)
+
 
 @login_required(login_url='common:login')
 def Database(request):
