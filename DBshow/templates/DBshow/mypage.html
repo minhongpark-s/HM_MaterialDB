@@ -48,7 +48,7 @@
                           <li><a class="dropdown-item" href="{% url 'DBshow:my_page' %}">Profile</a></li>
                           <li><a class="dropdown-item disabled" href="#">Q&A</a></li>
                           {% if user.is_authenticated %}
-                          <li><a class="dropdown-item" href="#">logout</a></li>
+                          <li><a class="dropdown-item" href= "{% url 'common:logout' %}">logout</a></li>
                           {% else %}
                           <li><a class="dropdown-item" href="#">login</a></li>
                           {% endif %}
