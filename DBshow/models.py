@@ -29,6 +29,8 @@ class DB(models.Model):
     def get_file_ext(self):
         return self.get_file_name().split('.')[-1]
 
+
+
 class Rent(models.Model):
     rent_code = models.IntegerField(blank=True, null=True)
     #대여번호
@@ -67,5 +69,7 @@ class LCdata(models.Model): #레이저 커팅 관련 DB
     registeredTime = models.DateTimeField(auto_now_add=True)
     modifiedTime = models.DateTimeField(auto_now=True)
     LC_status = models.CharField(max_length=20,blank=True,null=True,default="inprogress")
+
+
 
 

@@ -28,6 +28,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+AUTH_USER_MODEL = 'account.Profile'
+
 
 # Application definition
 
@@ -39,7 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'DBshow',
-
+    'account',
 ]
 
 MIDDLEWARE = [

@@ -14,7 +14,7 @@ def signup(request):
             form.save()
             username = form.cleaned_data.get('username')
             raw_password = form.cleaned_data.get('password1')
-            studentNumber = request.POST['studentNumber']
+            studentNumber = form.cleaned_data.get('studentNumber')
             user = authenticate(username=username, password=raw_password)  # 사용자 인증
             login(request, user)  # 로그인
             return redirect('DBshow:main')

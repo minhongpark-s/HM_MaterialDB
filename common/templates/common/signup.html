@@ -49,10 +49,29 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="real_name">진짜이름</label>
+                    <input type="text" class="form-control" name="real_name" id="real_name"
+                           value="{{ form.real_name.value|default_if_none:'' }}">
+                </div>
+
+                <div class="form-group">
                     <label for="email">이메일</label>
                     <input type="text" class="form-control" name="email" id="email"
                            value="{{ form.email.value|default_if_none:'' }}">
                 </div>
+
+                <div class="form-group">
+                    <label for="user_phone">전화번호</label>
+                    <input type="text" class="form-control" name="user_phone" id="user_phone"
+                           value="{{ form.user_phone.value|default_if_none:'' }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="user_major">전공</label>
+                    <input type="text" class="form-control" name="user_major" id="user_major"
+                           value="{{ form.user_major.value|default_if_none:'' }}">
+                </div>
+
 
                 <!--
                 <div class="form-group">
