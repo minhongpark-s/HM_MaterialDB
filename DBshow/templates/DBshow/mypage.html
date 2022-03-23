@@ -72,6 +72,37 @@
                     <p>{{ request.user.groups.all.0 }}</p>
                 </div>
             </div>
+            <!-- Modal -->
+            {% for n in lc %}
+                {% if n.LC_rent_name == request.user.username %}
+              <div class="modal fade" id="exampleModal{{n.id}}" tabindex="-1" aria-labelledby="exampleModalLabel{{n.id}}" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">reserve info</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <p>예약 내용: {{ n.LC_purpose }}</p>
+                        <p>예약 시간: {{ n.LC_availTime }}</p>
+                        {% if n.LC_who == "lee" %}
+                            <p>이왕건 조교님에게 예약</p>
+                        {% else %}
+                            <p>하이멕 관리자에게 예약</p>
+                        {% endif %}
+                        <p>{{ n.LC_thickness }}T {{ n.LC_width }}mm X {{ n.LC_height }}mm</p>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      <button type="button" class="btn btn-primary" disabled>개발중</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+                {% else %}
+
+              {% endif %}
+            {% endfor %}
 
             <!-- 아코디언 -->
             <div class="accordion" id="accordionExample" style="margin: 1%;">
@@ -117,7 +148,31 @@
                   </h2>
                   <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                     <div class="accordion-body">
-
+                        <table class="table">
+                            <thead>
+                              <tr>
+                                <th scope="col">#</th>
+                                <th scope="col" style="text-align: center;">Date</th>
+                                <th scope="col" style="text-align: center;"></th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                            {% for n in lc %}
+                                {% if n.LC_rent_name == request.user.username and n.LC_status == "inprogress" %}
+                                      <tr>
+                                        <th scope="row">{{ n.id }}</th>
+                                        <td style="text-align: center;">{{ n.registeredTime }}</td>
+                                        <td style="text-align: center;"><!-- Button trigger modal -->
+                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal{{n.id}}">
+                                                show info
+                                            </button>
+                                        </td>
+                                      </tr>
+                                {% else %}
+                                {% endif %}
+                            {% endfor %}
+                            </tbody>
+                        </table>
                     </div>
                   </div>
                 </div>

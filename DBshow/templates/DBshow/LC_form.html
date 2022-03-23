@@ -18,7 +18,7 @@
         $('[data-toggle="tooltip"]').tooltip()
     })
         function submitfun() {
-      alert("예약 신청이 완료되었습니다.");
+      alert("예약 신청이 완료되었습니다. 시간대가 확정되면 연락 드리겠습니다.");
     }
     </script>
     <div class="container" style="margin-top:0px; max-width: 600px; min-width: 400px;">
@@ -38,11 +38,11 @@
                     </div>
                     <div class="mb-3">
                         <label for="exampleInputPurpose" class="form-label">사용 목적</label>
-                        <textarea class="form-control" name="LC_purpose" id="exampleInputEmail" rows="3" aria-describedby="purposeHelp" required placeholder="사용 목적을 상세히 적어주세요"></textarea>
+                        <textarea class="form-control" name="LC_purpose" id="exampleInputEmail" rows="3" aria-describedby="purposeHelp" required placeholder="사용 목적을 상세히 적어주세요 ex) 임소경 차체 제작을 위해 레이저커팅이 필요합니다."></textarea>
                     </div>
                     <div class="mb-3">
                         <label for="exampleInputTime" class="form-label">가능 시간대</label>
-                        <textarea class="form-control" name="LC_availTime" id="exampleInputTime" rows="2" aria-describedby="TimeHelp" required placeholder="가능한 시간대를 2~3개 정도 적어주세요"></textarea>
+                        <textarea class="form-control" name="LC_availTime" id="exampleInputTime" rows="2" aria-describedby="TimeHelp" required placeholder="가능한 시간대를 2~3개 정도 적어주세요 ex) 3월15일 18:00~20:00        주의 : 최소 3일전에 예약해야합니다."></textarea>
                     </div>
 
                     <label for="exampleInputSize" class="form-label">사이즈</label>
