@@ -2,8 +2,8 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 
-from .models import DB, Rent
-from .forms import rentForm, returnForm
+from .models import DB, Rent, LCdata
+from .forms import rentForm, returnForm, LCForm
 from django.utils import timezone
 from django.contrib.auth import authenticate, login
 from common.forms import UserForm
@@ -14,7 +14,70 @@ import pandas as pd
 import warnings
 
 @login_required(login_url='common:login')
-@allowed_users(allowed_roles=['하이멕 관리부원', '하이멕 일반부원', '관리자'])
+def LC(request):
+    return render(
+        request,
+        'DBshow/LC_form.html'
+    )
+
+@login_required(login_url='common:login')
+def LC_reserve(request):
+    if request.method == "POST":
+        '''
+        return render(
+            request,
+            'DBshow/LC_form.html',
+        )
+        '''
+        form = LCForm(request.POST)
+        '''
+        return render(
+            request,
+            'DBshow/LC_form.html',
+            {
+                'form':form,
+            }
+        )
+        '''
+        if form.is_valid():
+            form_ = form.save(commit=False)
+            '''
+            return render(
+                request,
+                'DBshow/LC_form.html',
+                {
+                    'form_':form_,
+                }
+            )
+            '''
+            obj = LCdata.objects.create(
+                LC_rent_name=request.user.username,
+                LC_phone_number=form_.LC_phone_number,
+                LC_purpose=form_.LC_purpose,
+                LC_availTime=form_.LC_availTime,
+                LC_thickness=form_.LC_thickness,
+                LC_width=form_.LC_width,
+                LC_height=form_.LC_height,
+                LC_who=form_.LC_who,
+            )
+            obj.save()
+        #else:
+            return redirect('/main/')
+
+            #return HttpResponseRedirect(reverse('127.0.0.1:8000/main/'), request)
+            #return redirect('/Database/')
+            #return redirect('/main/')
+    else:
+        form = LCForm()
+        context = {
+            'form': form,
+                   }
+        return render(request,
+                      'DBshow/LC_form.html',
+                      context)
+
+
+@login_required(login_url='common:login')
 def Database(request):
     db = DB.objects.all()
     num = DB.objects.count()
@@ -42,7 +105,7 @@ def xlsxAdd(request):
         warnings.simplefilter("always")
         # 엑셀 읽어오는 부분
         df = pd.read_excel(
-            "/하이멕 물품 분류.xlsx", engine="openpyxl")
+            "/home/ubuntu/fileShare/share/excel_.xlsx", engine="openpyxl")
 
     # list 값이 모두 NaN인 데이터 제외
     data = df.dropna(how='all')
@@ -50,12 +113,12 @@ def xlsxAdd(request):
     # 엑셀 데이터 db insert
     for dbfram in data.itertuples():
         obj = DB.objects.create(
-            product_name=dbfram.이름,
-            rentable_num=dbfram.개수,
-            total_num=dbfram.개수,
+            product_name=dbfram.name,
+            rentable_num=dbfram.number,
+            total_num=dbfram.number,
             registeredTime=timezone.now(),
             modifiedTime=timezone.now(),
-            tag=dbfram.분류,
+            tag=dbfram.tag,
 
         )
         obj.save()
@@ -100,6 +163,7 @@ def my_page(request):
     num = DB.objects.count()
     rent = Rent.objects.all()
     num_r = Rent.objects.count()
+    lc = LCdata.objects.all()
 
     return render(
         request,
@@ -109,12 +173,14 @@ def my_page(request):
             'n': num,
             'r': rent,
             'nr': num_r,
+            'lc': lc,
         }
     )
 
 
 
 @login_required(login_url='common:login')
+@allowed_users(allowed_roles=['관리자','하이멕 임원진','하이멕 관리부원', '하이멕 일반부원'])
 def change_rentable_num(request, rent_id):
     db = get_object_or_404(DB, pk=rent_id)
     if request.method == "POST":
@@ -130,20 +196,22 @@ def change_rentable_num(request, rent_id):
                         rent_date=timezone.now()
                         )
             rent.save()
-            #db_new = DB.objects.all()
-            #num = DB.objects.count()
-            '''
+            db_new = DB.objects.all()
+            num = DB.objects.count()
+            rent = Rent.objects.all()
+            num_r = Rent.objects.count()
             return render(
                 request,
                 'DBshow/Database.html',
                 {
                     'db': db_new,
                     'n': num,
+                    'r': rent,
+                    'nr': num_r,
                 }
             )
-            '''
             #return HttpResponseRedirect(reverse('127.0.0.1:8000/db/Database/'), request)
-            return redirect('/Database/')
+            #return redirect('/Database/')
     else:
         form = rentForm()
         db = DB.objects.all()
@@ -158,6 +226,7 @@ def change_rentable_num(request, rent_id):
 
 
 @login_required(login_url='common:login')
+@allowed_users(allowed_roles=['관리자','하이멕 임원진','하이멕 관리부원', '하이멕 일반부원'])
 def change_rent_num(request, rent_id):
     rent = get_object_or_404(Rent, pk=rent_id)
     if request.method == "POST":
