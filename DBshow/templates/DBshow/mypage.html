@@ -237,7 +237,7 @@ body {
 					<div class="mt-3">
 						<h4>{{ request.user.username }}</h4>
 						<p class="text-secondary mb-1">{{ request.user.groups.all.0 }}</p>
-                        {% if request.user.groups.all.0.name == "관리자" %}
+                        {% if request.user.groups.all.0.name == "admin" %}
                             <a class="nav-link active" style="float:left" href= "{% url 'DBshow:xlsxAdd' %}">Add Xlsx</a>
                             <a class="nav-link active" style="color:red; float:right" href= "{% url 'DBshow:DeleteDB' %}">remove Database</a>
                         {% endif %}
