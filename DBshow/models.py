@@ -64,5 +64,8 @@ class LCdata(models.Model): #레이저 커팅 관련 DB
     LC_thickness = models.IntegerField(blank=True,null=True)
     LC_width = models.IntegerField(blank=True,null=True)
     LC_height = models.IntegerField(blank=True,null=True)
+    registeredTime = models.DateTimeField(auto_now_add=True)
+    modifiedTime = models.DateTimeField(auto_now=True)
+    LC_status = models.CharField(max_length=20,blank=True,null=True,default="inprogress")
 
 

@@ -163,6 +163,7 @@ def my_page(request):
     num = DB.objects.count()
     rent = Rent.objects.all()
     num_r = Rent.objects.count()
+    lc = LCdata.objects.all()
 
     return render(
         request,
@@ -172,6 +173,7 @@ def my_page(request):
             'n': num,
             'r': rent,
             'nr': num_r,
+            'lc': lc,
         }
     )
 
