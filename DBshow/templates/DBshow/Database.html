@@ -1,597 +1,222 @@
 <!DOCTYPE html>
 {% load static %}
-<html>
 <head>
-	<meta charset="utf-8">
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://kit.fontawesome.com/4877001cdd.js" crossorigin="anonymous"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.68">
 
-	<meta name="viewport" content="width=device-width">
-	<title>물품 대여 주문 목록 작성</title>
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
-    <script src="//code.jquery.com/jquery.min.js"></script>
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
+    <!-- 돋보기 css -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
 
-	<!-- https://bootsnipp.com/snippets/D2v11 -->
+	<!-- JQuery -->
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
-	<!-- https://bootsnipp.com/snippets/35V6b -->
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+	<style>
+        /* https://bootsnipp.com/snippets/35V6b search box */
 
-    <style>
+        .form-control-borderless {
+            border: none;
+        }
 
-    /* 검색 테이블 관련 css입니다. */
-    .search-table{
-        padding: 0%; //10%
-        margin: 0%; //-6%
-    }
-    .search-box{
-        background: #c1c1c1;
-        border: 1px solid #ababab;
-        padding: 3%;
-    }
-    .search-box input:focus{
-        box-shadow:none;
-        border:2px solid #eeeeee;
-    }
-    .search-list{
-        background: #fff;
-        border: 1px solid #ababab;
-        border-top: none;
-    }
-    .search-list h3{
-        background: #eee;
-        padding: 3%;
-        margin-bottom: 0%;
-    }
-    td {
-        text-align: center;
-      }
-    th {
-        text-align: center;
-      }
+        .form-control-borderless:hover, .form-control-borderless:active, .form-control-borderless:focus {
+            border: none;
+            outline: none;
+            box-shadow: none;
+        }
 
-    :root {
-  --input-padding-x: .75rem;
-  --input-padding-y: .75rem;
-    }
+        /* 태그 분리용 */
 
-    body {
-      background: #f7f7ff;
-      margin-top:20px;
-      display: -ms-flexbox;
-      display: -webkit-box;
-      display: flex;
-      -ms-flex-align: center;
-      -ms-flex-pack: center;
-      -webkit-box-align: center;
-      align-items: center;
-      -webkit-box-pack: center;
-      justify-content: center;
-      padding-top: 40px;
-      padding-bottom: 40px;
-      background-color: #f5f5f5;
-    }
-
-    .form-signin {
-      width: 100%;
-      max-width: 420px;
-      padding: 15px;
-      margin: 0 auto;
-    }
-
-    .form-label-group {
-      position: relative;
-      margin-bottom: 1rem;
-    }
-
-    .form-label-group > input,
-    .form-label-group > label {
-      padding: var(--input-padding-y) var(--input-padding-x);
-    }
-
-    .form-label-group > label {
-      position: absolute;
-      top: 0;
-      left: 0;
-      display: block;
-      width: 100%;
-      margin-bottom: 0; /* Override default `<label>` margin */
-      line-height: 1.5;
-      color: #495057;
-      border: 1px solid transparent;
-      border-radius: .25rem;
-      transition: all .1s ease-in-out;
-    }
-
-    .form-label-group input::-webkit-input-placeholder {
-      color: transparent;
-    }
-
-    .form-label-group input:-ms-input-placeholder {
-      color: transparent;
-    }
-
-    .form-label-group input::-ms-input-placeholder {
-      color: transparent;
-    }
-
-    .form-label-group input::-moz-placeholder {
-      color: transparent;
-    }
-
-    .form-label-group input::placeholder {
-      color: transparent;
-    }
-
-    .form-label-group input:not(:placeholder-shown) {
-      padding-top: calc(var(--input-padding-y) + var(--input-padding-y) * (2 / 3));
-      padding-bottom: calc(var(--input-padding-y) / 3);
-    }
-
-    .form-label-group input:not(:placeholder-shown) ~ label {
-      padding-top: calc(var(--input-padding-y) / 3);
-      padding-bottom: calc(var(--input-padding-y) / 3);
-      font-size: 12px;
-      color: #777;
-    }
-    /* Space out content a bit */
-    body {
-      padding-top: 1.5rem;
-      padding-bottom: 1.5rem;
-    }
-
-    /* Everything but the jumbotron gets side spacing for mobile first views */
-    .header,
-    .marketing,
-    .footer {
-      padding-right: 1rem;
-      padding-left: 1rem;
-    }
-
-    /* Custom page header */
-    .header {
-      padding-bottom: 1rem;
-      border-bottom: .05rem solid #e5e5e5;
-    }
-    /* Make the masthead heading the same height as the navigation */
-    .header h3 {
-      margin-top: 0;
-      margin-bottom: 0;
-      line-height: 3rem;
-    }
-
-    /* Custom page footer */
-    .footer {
-      padding-top: 1.5rem;
-      color: #777;
-      border-top: .05rem solid #e5e5e5;
-    }
-
-    /* Customize container */
-    @media (min-width: 48em) {
-      .container {
-        max-width: 46rem; /* 가장 바깥쪽 너비 */
-      }
-    }
-    .container-narrow > hr {
-      margin: 2rem 0;
-    }
-
-    /* Main marketing message and sign up button */
-    .jumbotron {
-      text-align: center;
-      border-bottom: .05rem solid #e5e5e5;
-    }
-    .jumbotron .btn {
-      padding: .75rem 1.5rem;
-      font-size: 1.5rem;
-    }
-
-    /* Supporting marketing content */
-    .marketing {
-      margin: 3rem 0;
-    }
-    .marketing p + h4 {
-      margin-top: 1.5rem;
-    }
-
-    /* Responsive: Portrait tablets and up */
-    @media screen and (min-width: 48em) {
-      /* Remove the padding we set earlier */
-      .header,
-      .marketing,
-      .footer {
-        padding-right: 0;
-        padding-left: 0;
-      }
-      /* Space out the masthead */
-      .header {
-        margin-bottom: 2rem;
-      }
-      /* Remove the bottom border on the jumbotron for visual effect */
-      .jumbotron {
-        border-bottom: 0;
-      }
-    }
-
-    /* 테이블 필터 관련 */
-    /*    --------------------------------------------------
-	:: General
-	-------------------------------------------------- */
-body {
-	font-family: 'Open Sans', sans-serif;
-	color: #353535;
-}
-.content h1 {
-	text-align: center;
-}
-.content .content-footer p {
-	color: #6d6d6d;
-    font-size: 12px;
-    text-align: center;
-}
-.content .content-footer p a {
-	color: inherit;
-	font-weight: bold;
-}
-
-/*	--------------------------------------------------
-	:: Table Filter
-	-------------------------------------------------- */
-.panel {
-	border: 1px solid #ddd;
-	background-color: #fcfcfc;
-}
-.panel .btn-group {
-	margin: 15px 0 30px;
-}
-.panel .btn-group .btn {
-	transition: background-color .3s ease;
-}
-.table-filter {
-	background-color: #fff;
-	border-bottom: 1px solid #eee;
-}
-.table-filter tbody tr:hover {
-	cursor: pointer;
-	background-color: #eee;
-}
-.table-filter tbody tr td {
-	padding: 10px;
-	vertical-align: middle;
-	border-top-color: #eee;
-}
-.table-filter tbody tr.selected td {
-	background-color: #eee;
-}
-.table-filter tr td:first-child {
-	width: 38px;
-}
-.table-filter tr td:nth-child(2) {
-	width: 35px;
-}
-.ckbox {
-	position: relative;
-}
-.ckbox input[type="checkbox"] {
-	opacity: 0;
-}
-.ckbox label {
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-}
-.ckbox label:before {
-	content: '';
-	top: 1px;
-	left: 0;
-	width: 18px;
-	height: 18px;
-	display: block;
-	position: absolute;
-	border-radius: 2px;
-	border: 1px solid #bbb;
-	background-color: #fff;
-}
-.ckbox input[type="checkbox"]:checked + label:before {
-	border-color: #2BBCDE;
-	background-color: #2BBCDE;
-}
-.ckbox input[type="checkbox"]:checked + label:after {
-	top: 3px;
-	left: 3.5px;
-	content: '\e013';
-	color: #fff;
-	font-size: 11px;
-	font-family: 'Glyphicons Halflings';
-	position: absolute;
-}
-.table-filter .star {
-	color: #ccc;
-	text-align: center;
-	display: block;
-}
-.table-filter .star.star-checked {
-	color: #F0AD4E;
-}
-.table-filter .star:hover {
-	color: #ccc;
-}
-.table-filter .star.star-checked:hover {
-	color: #F0AD4E;
-}
-.table-filter .media-photo {
-	width: 35px;
-}
-.table-filter .media-body {
-    display: block;
-    /* Had to use this style to force the div to expand (wasn't necessary with my bootstrap version 3.3.6) */
-}
-.table-filter .media-meta {
-	font-size: 11px;
-	color: #999;
-}
-.table-filter .media .title {
-	color: #2BBCDE;
-	font-size: 14px;
-	font-weight: bold;
-	line-height: normal;
-	margin: 0;
-}
-.table-filter .media .title span {
-	font-size: .8em;
-	margin-right: 20px;
-}
-.table-filter .media .title span.pagado {
-	color: #5cb85c;
-}
-.table-filter .media .title span.pendiente {
-	color: #f0ad4e;
-}
-.table-filter .media .title span.cancelado {
-	color: #d9534f;
-}
-.table-filter .media .summary {
-	font-size: 14px;
-}
-.pull-right.보드 {
-	color: blue;
-}
-.pull-right.모터 {
-	color: green;
-}
-.pull-right.센서 {
-	color: orange;
-}
-.pull-right.전자.부품 {
-	color: red;
-}
-.pull-right.도구 {
-	color: gray;
-}
-.pull-right.기타 {
-	color: black;
-}
-
-/* https://bootsnipp.com/snippets/35V6b search box */
-
-.form-control-borderless {
-    border: none;
-}
-
-.form-control-borderless:hover, .form-control-borderless:active, .form-control-borderless:focus {
-    border: none;
-    outline: none;
-    box-shadow: none;
-}
-
-
-
+        .pull-right.보드 {
+          color: blue;
+        }
+        .pull-right.모터 {
+          color: green;
+        }
+        .pull-right.센서 {
+          color: orange;
+        }
+        .pull-right.전자.부품 {
+          color: red;
+        }
+        .pull-right.도구 {
+          color: gray;
+        }
+        .pull-right.기타 {
+          color: black;
+        }
     </style>
+
 </head>
 
 <body>
+    <!-- bootstrap 스크립트 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
-    <div class="container">
-      <div class="header clearfix">
-        <nav>
-          <ul class="nav nav-pills float-right">
-            <li class="nav-item">
-              {% if user.is_authenticated %}
-              <a class="nav-link active" href= "{% url 'common:logout' %}">LogOut</a>
-              {% else %}
-                <a class="nav-link active" href="{% url 'common:login' %}">LogIn</a>
-              {% endif %}
-              <!--<a class="nav-link active" href="http://lacodeid.com">Home <span class="sr-only">(current)</span></a>-->
-            </li>
-            <li class="nav-item">
-              {% if user.is_authenticated %}
-              <a class="nav-link" href="{% url 'DBshow:my_page' %}">MyPage</a>
-              {% else %}
-              <a class="nav-link" href="#">About</a>
-              {% endif %}
-            </li>
-          </ul>
-        </nav>
-        <a class="text-muted" href= "{% url 'DBshow:main' %}" style="text-decoration:none; zoom:2.0">HYMEC</a>
-      </div>
-        <div class="jumbotron" style="height: 600px; overflow: scroll">
-			<div class="container">
-					<section class="content">
-							<div class="panel panel-default">
-								<div class="panel-body">
-									<br/>
-									<form class="card card-sm" style="zoom:0.5; margin-left:5%; margin-right:5%;">
-										<div class="card-body row no-gutters align-items-center">
-											<div class="col-auto">
-												<i class="fas fa-search h4 text-body"></i>
-											</div>
-											<!--end of col-->
-											<div class="col">
-												<input class="form-control form-control-lg form-control-borderless" id="search_input" type="search" placeholder="물품이나 태그를 검색해보세요 ex) 라즈베리파이">
-												<script>
-													$(document).ready(function () {
-														$("#search_input").on("keyup", function () {
-															var value = $(this).val().toLowerCase();
-															$("#search_table tr").filter(function () {
-																$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-															});
-														});
-													});
-												</script>
-											</div>
-											<!--end of col-->
-											<div class="col-auto">
-												<button class="btn btn-lg btn-success" type="submit">Search</button>
-											</div>
-											<!--end of col-->
-										</div>
-									</form>
-										<!--end of col-->
-									<div class="pull-right">
-										<div class="btn-group" style="zoom:0.45; margin-top:2.5%;">
-											<script>
-												$(document).ready(function () {
-													$('.star').on('click', function () {
-													  $(this).toggleClass('star-checked');
-													});
+    <div class="container" style="margin-top:0px; max-width: 600px; min-width: 600px;">
+        <div class="card fat" style="margin-top:40px">
 
-													$('.ckbox label').on('click', function () {
-													  $(this).parents('tr').toggleClass('selected');
-													});
+          <!-- 네비게이션 바 -->
+          <nav class="navbar navbar-expand-lg navbar-light bg-light ">
+            <div class="container-fluid">
+              <a class="navbar-brand" href= "{% url 'DBshow:main' %}">HY-MEC</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href= "{% url 'DBshow:main' %}">Home</a>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle mr-auto" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Utility
+                    </a>
+                    <ul class="dropdown-menu mr-auto" aria-labelledby="navbarDropdownMenuLink">
+                      <li><a class="dropdown-item" href="{% url 'DBshow:Database' %}">물품 확인/대여</a></li>
+                      <li><a class="dropdown-item" href="{% url 'DBshow:LC_reserve' %}">레이저 커팅 예약</a></li>
+                    </ul>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link disabled" href="#">Guide</a>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle mr-auto" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      My
+                    </a>
+                    <ul class="dropdown-menu mr-auto" aria-labelledby="navbarDropdownMenuLink">
+                      <li><a class="dropdown-item" href="{% url 'DBshow:my_page' %}">Profile</a></li>
+                      <li><a class="dropdown-item disabled" href="#">Q&A</a></li>
+                      {% if user.is_authenticated %}
+                      <li><a class="dropdown-item" href="{% url 'common:logout' %}">logout</a></li>
+                      {% else %}
+                      <li><a class="dropdown-item" href="#">login</a></li>
+                      {% endif %}
+                    </ul>
+                  </li>
+                </ul>
+                </ul>
+              </div>
+            </div>
+          </nav>
 
-													$('.btn-filter').on('click', function () {
-													  var $target = $(this).data('target');
-													  if ($target != 'all') {
-														$('.table tr').css('display', 'none');
-														$('.table tr[data-status="' + $target + '"]').fadeIn('slow');
-													  } else {
-														$('.table tr').css('display', 'none').fadeIn('slow');
-													  }
-													});
+          <!-- search box -->
+          <form class="card card-sm" style="zoom:0.7; margin:2%;">
+            <div class="card-body row no-gutters align-items-center">
+              <div class="col-auto" style="zoom:0.9">
+                <i class="fas fa-search h4 text-body"></i>
+              </div>
+              <!--end of col-->
+              <div class="col">
+                <input class="form-control form-control-lg form-control-borderless" id="search_input" type="search" placeholder="물품이나 태그를 검색해보세요 ex) 라즈베리파이" style="zoom:1.0">
+                <script>
+                  $(document).ready(function () {
+                    $("#search_input").on("keyup", function () {
+                      var value = $(this).val().toLowerCase();
+                      $("#search_table tr").filter(function () {
+                        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                      });
+                    });
+                  });
+                </script>
+              </div>
+              <!--end of col-->
+              <div class="col-auto">
+                <button class="btn btn-lg btn-success" type="submit">Search</button>
+              </div>
+              <!--end of col-->
+            </div>
+          </form>
 
-												 });
-											</script>
-											<button type="button" class="btn btn-info btn-filter" data-target="보드">보드</button>
-											<button type="button" class="btn btn-success btn-filter" data-target="모터">모터</button>
-											<button type="button" class="btn btn-warning btn-filter" data-target="센서">센서</button>
-											<button type="button" class="btn btn-danger btn-filter" data-target="전자 부품">전자 부품</button>
-											<button type="button" class="btn btn-secondary btn-filter" style="color:white;" data-target="도구">도구</button>
-											<button type="button" class="btn btn-dark btn-filter" style="color:white;" data-target="기타">기타</button>
-											<button type="button" class="btn btn-default btn-filter" data-target="all">초기화</button>
+          <!-- 버튼 그룹 -->
+          <div class="container" style="zoom:1.2; text-align: center; margin-top: -2%">
+            <script>
+              $(document).ready(function () {
+                $('.star').on('click', function () {
+                  $(this).toggleClass('star-checked');
+                });
 
-										</div>
-									</div>
-									<div class="table-container">
-										<table class="table table-filter" id="search_table">
-											<tbody>
-												{% for p in db %}
-												<tr data-status="{{p.tag}}">
-													<td>
-														<div class="ckbox">
-															<input type="checkbox" id="checkbox1">
-															<label for="checkbox1"></label>
-														</div>
-													</td>
-													<td>
-													</td>
-													<td>
-														<div class="media">
-                                                            {% if p.image %}
-                                                                <img src="{{p.image.url}}" alt="{{p}} head image" width="25%" height="25%">
-                                                            {% else %}
-                                                                <img src="https://user-images.githubusercontent.com/76476451/158047405-3b521371-f239-44ec-9503-87020d79d565.jpg" alt="{{p}} head image" width="25%" height="25%">
-                                                            {% endif %}
-															<div class="media-body">
-																<span class="media-meta pull-right">{{ p.registeredTime }}</span>
-																<h4 class="title">
-																	{{ p.product_name }}
-																	<span class="pull-right {{ p.tag }}">({{p.tag}})</span>
-																</h4>
-																<p class="summary">대여 가능 수량은 {{p.total_num }}개 중 {{p.rentable_num }}개입니다.</p>
-															</div>
-														</div>
-													</td>
-													{% if p.rentable_num != 0 %}
-													<td>
-														<a href="{% url 'DBshow:change_rentable_num' p.id  %}" class="btn btn-success btn-xs" style="zoom: 0.5;">대여</a>
-													</td>
-													{% else %}
-													<td>
-														<a class="btn btn-danger btn-lg" style="zoom: 0.5; color: white;">재고 없음</a>
-													</td>
-													{% endif %}
-												</tr>
-												{% endfor %}
-											</tbody>
-										</table>
-									</div>
-								</div>
-							</div>
-							<div class="content-footer">
-								<p>
-									<br>
-									since 2022 <br>
-									Powered By <a href="https://github.com/minhongpark-s/HM_MaterialDB" target="_blank">HYMEC</a>
-								</p>
-							</div>
-					</section>
-			</div>
-		</div>
-      <footer class="footer">
-        <p><a href="http://lacodeid.com">HYMEC</a> 2022</p>
-      </footer>
-<div class="modal" id="exampleModal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">×</span>
-        </button>
-      </div>
-      <div class="modal-body">
-    <form class="form-signin">
-      <div class="text-center mb-4">
-        <img class="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
-        <h1 class="h3 mb-3 font-weight-normal">Floating labels</h1>
-        <p>Build form controls with floating labels via the <code>:placeholder-shown</code> pseudo-element. <a href="https://caniuse.com/#feat=css-placeholder-shown">Works in latest Chrome, Safari, and Firefox.</a></p>
-      </div>
+                $('.ckbox label').on('click', function () {
+                  $(this).parents('tr').toggleClass('selected');
+                });
 
-      <div class="form-label-group">
-        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-        <label for="inputEmail">Email address</label>
-      </div>
+                $('.btn-filter').on('click', function () {
+                  var $target = $(this).data('target');
+                  if ($target != 'all') {
+                  $('.table tr').css('display', 'none');
+                  $('.table tr[data-status="' + $target + '"]').fadeIn('slow');
+                  } else {
+                  $('.table tr').css('display', 'none').fadeIn('slow');
+                  }
+                });
 
-      <div class="form-label-group">
-        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-        <label for="inputPassword">Password</label>
-      </div>
+               });
+            </script>
 
-      <div class="checkbox mb-3">
-        <label>
-          <input type="checkbox" value="remember-me"> Remember me
-        </label>
-      </div>
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-      <p class="mt-5 mb-3 text-muted text-center">© 2017-2018</p>
-    </form>
+            <span type="button"class="badge bg-primary btn-filter" data-target="보드" >보드</span>
+            <span type="button"class="badge bg-success btn-filter" data-target="모터">모터</span>
+            <span type="button"class="badge bg-warning text-dark btn-filter"data-target="센서">센서</span>
+            <span type="button"class="badge bg-danger btn-filter"data-target="전자 부품">전자 부품</span>
+            <span type="button"class="badge bg-secondary btn-filter" data-target="도구">도구</span>
+            <span type="button"class="badge bg-dark btn-filter" data-target="기타">기타</span>
+            <span type="button"class="badge bg-light text-dark btn-filter" data-target="all">초기화</span>
+			  <hr style="margin:0; padding:0; margin-top:1%; border:0.3px">
+          </div>
 
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Save changes</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
+          <!-- 테이블행 컨테이너 -->
+          <div class="table-container" style="margin:%; height:600px; overflow:scroll">
+			  <div class="container" style="margin-top :1%;">
+				<table class="table table-filter" id="search_table">
+              <tbody>
+                {% for p in db %}
+                <tr data-status="{{p.tag}}">
+                  <td>
+                    <div class="media">
+                      {% if p.image %}
+                        <img src="{{p.image.url}}" alt="{{p}} head image" width="25%" height="25%">
+                      {% else %}
+                        <img src="https://user-images.githubusercontent.com/76476451/158047405-3b521371-f239-44ec-9503-87020d79d565.jpg" alt="{{p}} head image" width="25%" height="25%" style="max-width: 100px; max-height: 100px;">
+                      {% endif %}
+                      <div class="media-body" style="display: block; text-align: center; zoom:1.15">
+                        <span class="media-meta" style="font-size: 11px; color: #999;">{{ p.registeredTime }}</span>
+                        <h4 class="title" style="color: #2BBCDE; font-size: 14px; font-weight: bold; line-height: normal; margin: 0; margin-top: 1%;">
+                          {{ p.product_name }}
+                          <span class="pull-right {{ p.tag }}" style="font-size: .8em; margin-right: 20px;">({{p.tag}})</span>
+                        </h4>
+                        <p class="summary" style="font-size: 14px; ">대여 가능 수량은 {{p.total_num }}개 중 {{p.rentable_num }}개입니다.</p>
+                      </div>
+                    </div>
+                  </td>
+                  {% if p.rentable_num != 0 %}
+                  <td style="vertical-align:middle; min-width:100px; text-align:center;">
+                    <a href="{% url 'DBshow:change_rentable_num' p.id  %}" class="btn btn-success btn-xs" style="zoom: 0.9;">대여</a>
+                  </td>
+					{% else %}
+					<td style="vertical-align:middle; padding:0; min-width:100px; text-align:center;">
+						<a class="btn btn-danger btn-lg" style="zoom: 0.8;color: white; font-size:16px;">재고 없음</a>
+					</td>
+					{% endif %}
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+			  </div>
+          </div>
+
+		    </div>
   </div>
-</div>
 
-    </div> <!-- /container -->
+    <!-- Footer 컨테이너 -->
+    <div class="container" style="margin-top:0px; max-width: 600px; min-width: 600px;">
+      <footer class="py-3 my-4">
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+          <li class="nav-item"><a href= "{% url 'DBshow:main' %}" class="nav-link px-2 text-muted">Home</a></li>
+          <li class="nav-item"><a href="#" class="nav-link px-2 text-muted disabled">FAQs</a></li>
+          <li class="nav-item"><a href="#" class="nav-link px-2 text-muted disabled">About</a></li>
+        </ul>
+        <p class="text-center text-muted">© 2022 HYMEC, Academy</p>
+      </footer>
+    </div>
 </body>
-</html>

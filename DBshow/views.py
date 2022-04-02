@@ -180,7 +180,6 @@ def my_page(request):
 
 
 @login_required(login_url='common:login')
-@allowed_users(allowed_roles=['관리자','하이멕 임원진','하이멕 관리부원', '하이멕 일반부원'])
 def change_rentable_num(request, rent_id):
     db = get_object_or_404(DB, pk=rent_id)
     if request.method == "POST":
@@ -226,7 +225,6 @@ def change_rentable_num(request, rent_id):
 
 
 @login_required(login_url='common:login')
-@allowed_users(allowed_roles=['관리자','하이멕 임원진','하이멕 관리부원', '하이멕 일반부원'])
 def change_rent_num(request, rent_id):
     rent = get_object_or_404(Rent, pk=rent_id)
     if request.method == "POST":
